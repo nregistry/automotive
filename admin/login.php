@@ -27,7 +27,7 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-header.ph
         </div>
         <!-- /.col -->
         <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-block">Sign In</button>
         </div>
         <!-- /.col -->
     </div>
@@ -37,7 +37,39 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-header.ph
     <a href="<?php echo base_url(); ?>admin/forgot.php">I forgot my password</a>
 </p>
 <p class="mb-0">
-    <a href="register.html" class="text-center">Register a new membership</a>
+    <a href="<?php echo base_url(); ?>admin/register.php" class="text-center">Register a new membership</a>
 </p>
 
 <?php require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-footer.php"); ?>
+
+<script>
+    $(document).ready(function(){
+        $('#loginForm').submit(function(event){
+            event.preventDefault();
+            var form_data = $(this).serialize();
+            $.ajax({
+                url:"<?php echo base_url(); ?>api/admins/login.php",
+                type:"POST",
+                data:form_data, 
+                dataType:"json",
+                beforeSend:function(){
+                    $('#loginSubmitBtn').html("Loading...");
+                },
+                success:function(data){
+                    if(data.message == "success"){
+                        toastr.success('You have successfully logged in to your account.');
+                        $('#loginSubmitBtn').html("success");
+                        window.location.href = "<?php echo base_url(); ?>admin/index.php";
+                    }
+
+                    if(data.message == "errorAdmin"){
+                        toastr.error('Please make sure you have entered correct username and password to continue');
+                        $('#loginSubmitBtn').html("Error");
+                        $('#password').val('');
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+</script>
