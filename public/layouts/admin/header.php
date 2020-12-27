@@ -16,52 +16,6 @@ if ($session->user_type != 'ADMIN') {
 
 $admin_id = htmlentities($session->user_id);
 
-// load organization
-
-$organization = new Organizations();
-
-if (!isset($_GET['organization'])) {
-    $session->logout();
-    redirect_to($url);
-}
-
-$organization_id = htmlentities($_GET['organization']);
-$current_org = $organization->find_by_id($organization_id);
-if (!$current_org) {
-    $session->logout();
-    redirect_to($url);
-}
-
-// Find admins account
-$account = new Accounts();
-$account_url = base_url().'admin/admin_account.php?organization='.$current_org['id'];
-$admin_account = $account->find_by_admin_id($admin_id);
-if (!$admin_account) {
-    // no account found for admin
-    // redirect to a page admin will select an account 
-    redirect_to($account_url);
-
-}
-
-$account_type = htmlentities($admin_account['account_type']);
-
-$payments_url = base_url() . 'admin/payments.php?organization=' . $current_org['id'];
-
-$account_payments = htmlentities($admin_account['payment_status']);
-$account_status = htmlentities($admin_account['account_status']);
-if (isset($page)) {
-    if ($account_payments == 'BALANCE') {
-        if ($page != 'payments') {
-            redirect_to($payments_url);
-        }
-    }
-    if ($account_status == 'INACTIVE') {
-        if ($page != 'payments') {
-            redirect_to($payments_url);
-        }
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -127,20 +81,33 @@ to get the desired effect
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Notifications Dropdown Menu -->
-                <?php if ($account_type == 'TRIAL') { ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="fa fa-bell"></i>
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-warning navbar-badge">15</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header">15 Notifications</span>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-envelope mr-2"></i> 4 new messages
+                            <span class="float-right text-muted text-sm">3 mins</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <span class="dropdown-item dropdown-header">Account</span>
-                            <div class="dropdown-divider"></div>
-                            <a href="<?php echo base_url(); ?>admin/payments.php?organization=<?php echo urlencode($current_org['id']); ?>" class="dropdown-item">
-                                <i class="fa fa-credit-card mr-2"></i> Buy Now
-                            </a>
-                        </div>
-                    </li>
-                <?php } ?>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-users mr-2"></i> 8 friend requests
+                            <span class="float-right text-muted text-sm">12 hours</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-file mr-2"></i> 3 new reports
+                            <span class="float-right text-muted text-sm">2 days</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    </div>
+                </li>
             </ul>
         </nav>
         <!-- /.navbar -->

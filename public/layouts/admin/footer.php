@@ -36,15 +36,7 @@
         <script src="<?php echo public_url();  ?>back/js/demo.js"></script>
         <script>
             $(document).ready(function() {
-                // loader
-                var loader = function() {
-                    setTimeout(function() {
-                        if ($('#ftco-loader').length > 0) {
-                            $('#ftco-loader').removeClass('show');
-                        }
-                    }, 1);
-                };
-                loader();
+                
                 $('.datepicker').datepicker({
                     format: 'yyyy-mm-dd'
                 });
@@ -107,26 +99,6 @@
                         }
                     });
                 }
-
-                $(document).on('click', '.organizationsNav', function(e) {
-                    e.preventDefault();
-                    var organization_id = $(this).attr("id");
-                    var action = "FETCH_ORGANIZATION";
-                    $.ajax({
-                        url: "<?php echo base_url(); ?>api/organization/organization.php",
-                        type: "POST",
-                        data: {
-                            action: action,
-                            organization_id: organization_id
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            var org_id = $.trim(data.id);
-                            localStorage.setItem('organization', org_id);
-                            window.location.href = "<?php echo base_url(); ?>admin/organizations/view.php?organization=" + org_id;
-                        }
-                    });
-                });
             });
         </script>
     </body>

@@ -25,3 +25,6 @@ require_once(CONFIG_PATH.DS.'functions.php');
 
 // load admins
 require_once(MODELS_PATH.DS.'admins.php');
+
+// load members
+require_once(MODELS_PATH.DS.'members.php');
