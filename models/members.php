@@ -58,7 +58,7 @@ class Members
         if (!empty($this->id)) {
             $this->id = htmlentities($this->id);
         }
-        $this->fullnames = htmlentities($this->admin_fullnames);
+        $this->fullnames = htmlentities($this->fullnames);
         $this->image = htmlentities($this->image);
         $this->phone = htmlentities($this->phone);
         $this->email = htmlentities($this->email);
@@ -412,16 +412,16 @@ class Members
         }
     }
 
-    public function find_by_email($admin_email = "")
+    public function find_by_email($email = "")
     {
         $query = "SELECT * FROM " . $this->table_name . " ";
-        $query .= "WHERE admin_email = :admin_email LIMIT 1";
+        $query .= "WHERE email = :email LIMIT 1";
 
         //Prepare statement 
         $stmt = $this->conn->prepare($query);
 
         // Execute query
-        if ($stmt->execute(array('admin_email' => $admin_email))) {
+        if ($stmt->execute(array('email' => $email))) {
             $tenant = $stmt->fetch(PDO::FETCH_ASSOC);
             // Set properties
             return $tenant;

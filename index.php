@@ -46,10 +46,10 @@
                     <form>
                         <div class="form-row">
                             <div class="col-12 col-md-9 mb-2 mb-md-0">
-                                <a href="<?php echo base_url(); ?>memebers/login.php" class="btn btn-block btn-lg btn-success">Sign In Membership</a>
+                                <a href="<?php echo base_url(); ?>members/login.php" class="btn btn-block btn-lg btn-success">Sign In Membership</a>
                             </div>
                             <div class="col-12 col-md-3">
-                                <a href="<?php echo base_url(); ?>memebers/register.php" type="submit" class="btn btn-block btn-lg btn-primary">Sign up</a>
+                                <a href="<?php echo base_url(); ?>members/register.php" type="submit" class="btn btn-block btn-lg btn-primary">Sign up</a>
                             </div>
                         </div>
                     </form>

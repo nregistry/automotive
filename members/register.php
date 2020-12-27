@@ -1,6 +1,6 @@
 <?php require_once('../init/initialization.php');
 $title = 'Admin || Register';
-require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-header.php");
+require_once(PUBLIC_PATH . DS . "layouts" . DS . "users" . DS . "login-header.php");
 ?>
 
 <p class="login-box-msg">Register a new membership</p>
@@ -88,9 +88,9 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-header.ph
     </div>
 </form>
 
-<a href="<?php echo base_url(); ?>admin/login.php" class="text-center">I already have a membership</a>
+<a href="<?php echo base_url(); ?>users/login.php" class="text-center">I already have a membership</a>
 
-<?php require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-footer.php"); ?>
+<?php require_once(PUBLIC_PATH . DS . "layouts" . DS . "users" . DS . "login-footer.php"); ?>
 
 <script>
     $(document).ready(function() {
@@ -99,7 +99,7 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-header.ph
             event.preventDefault();
             var form_data = $(this).serialize();
             $.ajax({
-                url: "<?php echo base_url(); ?>api/admins/new_admins.php",
+                url: "<?php echo base_url(); ?>api/members/new_member.php",
                 type: "POST",
                 data: form_data,
                 dataType: "json",
@@ -109,11 +109,11 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-header.ph
                 success: function(data) {
                     if (data.message == "success") {
                         $('#hostsRegistrationSubmitBtn').html("Success");
-                        toastr.success('You have successfully created an admin account');
-                        window.location.href = "<?php echo base_url(); ?>admin/login.php";
+                        toastr.success('You have successfully created an account.');
+                        window.location.href = "<?php echo base_url(); ?>members/login.php";
                     }
 
-                    if(data.message == 'emailExists'){
+                    if (data.message == 'emailExists') {
                         toastr.error('Email used already exists. Please check and try again...');
                         $('#hostsRegistrationSubmitBtn').html("Error");
                         return false;
@@ -136,8 +136,8 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-header.ph
                 success: function(data) {
                     if (data.message == "success") {
                         $('#organizationSubmitBtn').html("Success");
-                        
-                        
+
+
                     }
                 }
             });

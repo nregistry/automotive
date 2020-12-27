@@ -1,5 +1,5 @@
 <?php
-$url = base_url() . "users/login.php";
+$url = base_url() . "members/login.php";
 if (!$session->is_logged_in()) {
     redirect_to($url);
 }
@@ -16,25 +16,15 @@ if($session->user_type != "USER"){
 
 $user_id = htmlentities($session->user_id);
 
-$users = new Users();
+$members = new Members();
 
-$current_user = $users->find_by_id($user_id);
+$current_members = $members->find_by_id($user_id);
 
-if(!$current_user){
+if(!$current_members){
     $session->logout();
     redirect_to($url);
 }
 
-$organization_id = htmlentities($current_user['organization_id']);
-
-$organizations = new Organizations();
-
-$current_org = $organizations->find_by_id($organization_id);
-
-if(!$current_org){
-    $session->logout();
-    redirect_to($url);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
