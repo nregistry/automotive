@@ -31,3 +31,6 @@ require_once(MODELS_PATH.DS.'members.php');
 
 // load vehicles
 require_once(MODELS_PATH.DS.'vehicles.php');
+
+// load vehicle images
+require_once(MODELS_PATH.DS.'vehicle_images.php');

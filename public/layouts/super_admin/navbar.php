@@ -94,6 +94,13 @@
                                 <p>Vehicles Table</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>super_admin/vehicles/images_table.php" class="nav-link">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Vehicle Images Table</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
