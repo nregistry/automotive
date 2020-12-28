@@ -9,7 +9,7 @@ if (!$session->check_user()) {
     redirect_to($url);
 }
 
-if($session->user_type != "USER"){
+if ($session->user_type != "USER") {
     $session->logout();
     redirect_to($url);
 }
@@ -20,15 +20,15 @@ $members = new Members();
 
 $current_members = $members->find_by_id($user_id);
 
-if(!$current_members){
+if (!$current_members) {
     $session->logout();
     redirect_to($url);
 }
 
 $status = htmlentities($current_members['status']);
-$suucess_url = base_url().'members/success.php';
-if($status == 'REQUEST'){
-    if($page != 'success'){
+$suucess_url = base_url() . 'members/success.php';
+if ($status == 'REQUEST') {
+    if ($page != 'success') {
         redirect_to($suucess_url);
     }
 }
@@ -43,7 +43,7 @@ if($status == 'REQUEST'){
 
     <title><?php echo htmlentities($title); ?></title>
 
-    <link rel="shortcut icon" type="image/ico" href="<?php echo public_url(); ?>storage/logo/favicon.ico"/>
+    <link rel="shortcut icon" type="image/ico" href="<?php echo public_url(); ?>storage/logo/favicon.ico" />
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="<?php echo public_url(); ?>fonts/font-awesome/css/font-awesome.min.css">
     <!-- IonIcons -->
@@ -52,6 +52,8 @@ if($status == 'REQUEST'){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="<?php echo public_url(); ?>back/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Ekko Lightbox -->
+    <link rel="stylesheet" href="<?php echo public_url(); ?>back/plugins/ekko-lightbox/ekko-lightbox.css">
     <!-- Toastr -->
     <link rel="stylesheet" href="<?php echo public_url(); ?>back/plugins/toastr/toastr.min.css">
     <!-- DataTables -->
@@ -93,7 +95,7 @@ to get the desired effect
                     <a href="<?php echo base_url(); ?>users/index.php" class="nav-link">Dashboard</a>
                 </li>
             </ul>
-            
+
         </nav>
         <!-- /.navbar -->
         <?php include('navbar.php'); ?>

@@ -24,6 +24,7 @@ class Vehicle_Images_Migration
         $query .= "id INT(11) UNSIGNED  NOT NULL PRIMARY KEY AUTO_INCREMENT, ";
         $query .= "vehicle_id INT(11) NOT NULL, ";
         $query .= "image VARCHAR(200) NOT NULL, ";
+        $query .= "title VARCHAR(200) NOT NULL, ";
         $query .= "timestamp TIMESTAMP NULL DEFAULT NULL";
         $query .= ")";
 

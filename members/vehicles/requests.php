@@ -1,6 +1,6 @@
 <?php require_once('../../init/initialization.php');
 $title = "Admin || Dashboard";
-$page = 'dashboad';
+$page = 'vehicle request';
 require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); ?>
 
 <!-- Content Header (Page header) -->
@@ -181,7 +181,18 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
 
         $(document).on('click', '.view', function(){
             var vehicle_id = $(this).attr('id');
-            alert(vehicle_id);
+            var action = "FETCH_VEHICLE";
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/vehicles/vehicles.php",
+                type: "POST",
+                data: {action:action, vehicle_id:vehicle_id},
+                dataType: "json",
+                success: function(data) {
+                   var vehicle_id = $.trim(data.id);
+                   localStorage.setItem('vehicle', vehicle_id);
+                   window.location.href = '<?php echo base_url(); ?>members/vehicles/view.php?vehicle='+vehicle_id;
+                }
+            });
         });
     });
 </script>
