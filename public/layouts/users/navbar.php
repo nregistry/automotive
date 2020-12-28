@@ -50,9 +50,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>users/sales/index.php" class="nav-link">
+                            <a href="<?php echo base_url(); ?>members/vehicles/index.php" class="nav-link">
                                 <i class="fa fa-circle nav-icon"></i>
                                 <p>My Vehicle</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>members/vehicles/requests.php" class="nav-link">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>My Requets</p>
                             </a>
                         </li>
                     </ul>

@@ -28,3 +28,6 @@ require_once(MODELS_PATH.DS.'admins.php');
 
 // load members
 require_once(MODELS_PATH.DS.'members.php');
+
+// load vehicles
+require_once(MODELS_PATH.DS.'vehicles.php');

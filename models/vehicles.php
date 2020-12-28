@@ -241,4 +241,57 @@ class Vehicles
             return false;
         }
     }
+
+    public function find_all_by_member_id($member_id=0)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " ";
+        $query .= "WHERE member_id = :member_id ";
+        $query .= "ORDER BY id DESC";
+
+        // prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // clean up data
+        $member_id = htmlentities($member_id);
+
+        // execute statemrent 
+        if ($stmt->execute(array('member_id' => $member_id))) {
+            // fetch data
+            $vehicle_object = array();
+            $count = $stmt->rowCount();
+            if ($count > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $vehicle_object[] = $row;
+                }
+            }
+            return $vehicle_object;
+        }
+    }
+
+    public function find_all_by_member_id_and_status($member_id=0, $status = '')
+    {
+        $query = "SELECT * FROM " . $this->table_name . " ";
+        $query .= "WHERE member_id = :member_id AND status = :status ";
+        $query .= "ORDER BY id DESC";
+
+        // prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // clean up data
+        $member_id = htmlentities($member_id);
+        $status = htmlentities($status);
+
+        // execute statemrent 
+        if ($stmt->execute(array('member_id' => $member_id, 'status'=>$status))) {
+            // fetch data
+            $vehicle_object = array();
+            $count = $stmt->rowCount();
+            if ($count > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $vehicle_object[] = $row;
+                }
+            }
+            return $vehicle_object;
+        }
+    }
 }

@@ -30,7 +30,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>5</h3>
+                        <h3 id="numMebersRequest"></h3>
 
                         <p>Member Requests</p>
                     </div>
@@ -96,11 +96,8 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
                     <div class="card-header border-0">
                         <h3 class="card-title">Active Members</h3>
                     </div>
-                    <div class="card-body table-responsive p-0">
-                        <table id="loadMembers" class="table table-striped table-valign-middle">
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <div id="loadMembers" class="card-body table-responsive p-0">
+                        
                     </div>
                 </div>
                 <!-- /.card -->
@@ -117,34 +114,32 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
 <script>
     $(document).ready(function() {
 
-        find_members();
-        find_num_members();
-        function find_members() {
+        find_active_members();
+        find_requests_members();
+
+        function find_active_members() {
             var status = 'ACTIVE';
-            var dataTable = $('#loadMembers').DataTable({
-                "processing": true,
-                "serverSide": true,
-                "order": [],
-                "ajax": {
-                    url: "<?php echo base_url(); ?>api/members/fetch.php",
-                    type: "POST",
-                    data: {
-                        status: status
-                    }
-                },
-                "autoWidth": false
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/members/fetch_dashboard.php",
+                type: "POST",
+                data: {status:status},
+                dataType: "json",
+                success: function(data) {
+                    $('#numMembers').html(data.num_members);
+                    $('#loadMembers').html(data.members);
+                }
             });
         }
 
-        function find_num_members(){
-            var action = 'FETCH_NUM_MEMBERS';
+        function find_requests_members() {
+            var status = 'REQUEST';
             $.ajax({
-                url: "<?php echo base_url(); ?>api/members/members.php",
+                url: "<?php echo base_url(); ?>api/members/fetch_dashboard.php",
                 type: "POST",
-                data: {action:action},
+                data: {status:status},
                 dataType: "json",
                 success: function(data) {
-                    $('#numMembers').html(data.total);
+                    $('#numMebersRequest').html(data.num_members);
                 }
             });
         }
