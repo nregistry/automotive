@@ -107,8 +107,8 @@ class Members
         $query = "";
         if (!empty($this->id)) {
             $query .= "UPDATE " . $this->table_name . " SET ";
-            $query .= "fullnames = :fullnames, image = :image , phone = :phone, email = :email, ";
-            $query .= "dob = :dob, gender, location = :location, status = :status, ";
+            $query .= "fullnames = :fullnames, image = :image, phone = :phone, email = :email, ";
+            $query .= "dob = :dob, gender = :gender, location = :location, status = :status, ";
             $query .= "username = :username, forgot_code = :forgot_code, ";
             $query .= "created_date = :created_date, edited_date = :edited_date ";
             $query .= "WHERE id = :id";

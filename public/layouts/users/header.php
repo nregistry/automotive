@@ -25,6 +25,13 @@ if(!$current_members){
     redirect_to($url);
 }
 
+$status = htmlentities($current_members['status']);
+$suucess_url = base_url().'members/success.php';
+if($status == 'REQUEST'){
+    if($page != 'success'){
+        redirect_to($suucess_url);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

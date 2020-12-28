@@ -63,8 +63,9 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "header.php"); ?
 <script>
     $(document).ready(function() {
         find_members();
+
         function find_members() {
-            var status = 'ACTIVE';
+            var status = 'REQUEST';
             var dataTable = $('#loadMembers').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -80,29 +81,29 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "header.php"); ?
             });
         }
 
-        $(document).on('click', '.view', function() {
-            var customer_id = $(this).attr('id');
-            var action = "FETCH_CUSTOMER";
-            $.ajax({
-                url: "<?php echo base_url(); ?>api/customers/customers.php",
-                type: "POST",
-                data: {
-                    action: action,
-                    customer_id: customer_id
-                },
-                dataType: "json",
-                success: function(data) {
-                    if (data.message == 'errorCustomer') {
-                        toastr.error('The customer selected does not exist');
-                        // .return false;
-                    } else {
-                        var cust_id = $.trim(data.id);
-                        localStorage.setItem('customer_id', cust_id);
-                        window.location.href = '<?php echo base_url(); ?>admin/customers/view.php?organization=' + organization_id + '&customer=' + cust_id;
+        $(document).on('click', '.approve', function() {
+            if (confirm('Are you sure?')) {
+                var member_id = $(this).attr('id');
+                var action = "UPDATE_MEMBER_STATUS";
+                $.ajax({
+                    url: "<?php echo base_url(); ?>api/members/activate_members.php",
+                    type: "POST",
+                    data: {
+                        action: action,
+                        member_id: member_id
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.message == 'success') {
+                            toastr.success('You have successfully approve the current member.');
+                            $('#loadMembers').DataTable().destroy();
+                            find_members();
+                        }
                     }
-                }
-            });
-
+                });
+            }else{
+                return false;
+            }
         });
     });
 </script>

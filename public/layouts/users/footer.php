@@ -48,7 +48,7 @@
                     function logout(){
                         var action = "LOGOUT";
                         $.ajax({
-                            url: "<?php echo base_url(); ?>api/users/users.php",
+                            url: "<?php echo base_url(); ?>api/members/members.php",
                             type: "POST",
                             data: {
                                 action: action
@@ -57,7 +57,7 @@
                             success: function(data) {
                                 if (data.message == "success") {
                                     localStorage.clear();
-                                    window.location.href = "<?php echo base_url(); ?>users/login.php";
+                                    window.location.href = "<?php echo base_url(); ?>members/login.php";
                                 }
                             }
                         });
@@ -68,7 +68,7 @@
                     function find_user() {
                         var action = "FETCH_LOGGED_IN_USER";
                         $.ajax({
-                            url: "<?php echo base_url(); ?>api/users/users.php",
+                            url: "<?php echo base_url(); ?>api/members/members.php",
                             type: "POST",
                             data: {
                                 action: action
@@ -78,7 +78,7 @@
                                 if (data.message == "logout") {
                                     logout();
                                 } else {
-                                    $('.loggedInImage').html('<img src="<?php echo public_url(); ?>storage/users/' + data.profile + '" class="img-circle elevation-2" alt="User Image">');
+                                    $('.loggedInImage').html('<img src="<?php echo public_url(); ?>storage/users/' + data.image + '" class="img-circle elevation-2" alt="User Image">');
                                     $('.loggedInUserName').html(data.username);
                                     // get organization id 
                                     var organization = $.trim(data.organization_id);
@@ -86,7 +86,6 @@
                                     // profile
                                     $('#userProfileImage').html('<img class="profile-user-img img-fluid img-circle" src="<?php echo public_url(); ?>storage/users/' + data.profile + '" alt="User profile picture">');
                                     $('#userProfileUserName').html(data.username);
-                                    find_employee(data.employee_id);
                                 }
                             }
                         });

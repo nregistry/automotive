@@ -30,3 +30,46 @@ if($_POST["action"] == "FETCH_MEMBER"){
     }
     echo json_encode($current_member);
 }
+
+if($_POST['action'] == "LOGOUT"){
+    if($session->is_logged_in()){
+        if ($session->user_type == "USER") {
+            $session->logout();
+            $data['message'] = "success";
+        } else {
+            $session->logout();
+            $data['message'] = "success";
+        }
+    }else{
+        $session->logout();
+        $data['message'] = "success";
+    }
+
+    echo json_encode($data);
+}
+
+if($_POST['action'] == "FETCH_LOGGED_IN_USER"){
+    if($session->is_logged_in()){
+        if($session->check_user()){
+            if($session->user_type == "USER"){
+                $member_id = htmlentities($session->user_id);
+                $current_member = $members->find_by_id($member_id);
+                if($current_member){
+                    echo json_encode($current_member);
+                }
+            }else{
+                $session->logout();
+                $data['message'] = "logout";
+                echo json_encode($data);
+            }
+        }else{
+            $session->logout();
+            $data['message'] = "logout";
+            echo json_encode($data);
+        }
+    }else{
+        $session->logout();
+        $data['message'] = "logout";
+        echo json_encode($data);
+    }
+}
