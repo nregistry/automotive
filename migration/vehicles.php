@@ -22,6 +22,7 @@ class Vehicles_Migration
     {
         $query = "CREATE TABLE IF NOT EXISTS " . $this->table_name . "(";
         $query .= "id INT(11) UNSIGNED  NOT NULL PRIMARY KEY AUTO_INCREMENT, ";
+        $query .= "member_id INT(11) NOT NULL, ";
         $query .= "vin_number VARCHAR(100) NOT NULL, ";
         $query .= "profile VARCHAR(200) NOT NULL, ";
         $query .= "production_date DATE NOT NULL, ";
@@ -29,6 +30,7 @@ class Vehicles_Migration
         $query .= "model VARCHAR(200) NOT NULL, ";
         $query .= "engine VARCHAR(200) NOT NULL, ";
         $query .= "trans VARCHAR(200) NOT NULL, ";
+        $query .= "status VARCHAR(200) NOT NULL, ";
         $query .= "timestamp TIMESTAMP NULL DEFAULT NULL";
         $query .= ")";
 
