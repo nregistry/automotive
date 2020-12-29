@@ -38,6 +38,8 @@ $admin_id = htmlentities($session->user_id);
     <link rel="stylesheet" href="<?php echo public_url(); ?>back/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Toastr -->
     <link rel="stylesheet" href="<?php echo public_url(); ?>back/plugins/toastr/toastr.min.css">
+    <!-- Ekko Lightbox -->
+    <link rel="stylesheet" href="<?php echo public_url(); ?>back/plugins/ekko-lightbox/ekko-lightbox.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="<?php echo public_url(); ?>back/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo public_url(); ?>back/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">

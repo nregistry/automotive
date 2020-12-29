@@ -224,6 +224,30 @@ class Vehicles
         }
     }
 
+    // find by status
+    public function find_all_by_status($status = '')
+    {
+        $query = "SELECT * FROM " . $this->table_name . " ";
+        $query .= "WHERE status = :status ";
+        $query .= "ORDER BY id DESC";
+
+        // prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // execute statemrent 
+        if ($stmt->execute(array('status'=>$status))) {
+            // fetch data
+            $vehicle_object = array();
+            $count = $stmt->rowCount();
+            if ($count > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $vehicle_object[] = $row;
+                }
+            }
+            return $vehicle_object;
+        }
+    }
+
     public function find_by_id($id = 0)
     {
         $query = "SELECT * FROM " . $this->table_name . " ";

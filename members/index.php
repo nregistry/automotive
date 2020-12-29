@@ -30,12 +30,27 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3 id="numVehicles">5</h3>
+                        <h3 id="numVehicles"></h3>
 
                         <p>My Vehicles</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3 id="activeMembersNum"></h3>
+
+                        <p>Active Member</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
                     </div>
                     <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
@@ -66,11 +81,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                     <div class="card-header border-0">
                         <h3 class="card-title">My Vehicles</h3>
                     </div>
-                    <div class="card-body table-responsive p-0">
-                        <table id="loadVehicles" class="table table-striped table-valign-middle">
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <div id="loadVehicles" class="card-body table-responsive p-0">
                     </div>
                 </div>
                 <!-- /.card -->
@@ -82,3 +93,40 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
 <!-- /.content -->
 
 <?php require_once(PUBLIC_PATH . DS . "layouts" . DS . "users" . DS . "footer.php"); ?>
+
+<script>
+    $(document).ready(function() {
+
+        find_active_members();
+        find_active_vehicles();
+
+        function find_active_members() {
+            var status = 'ACTIVE';
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/members/fetch_members_dashboard.php",
+                type: "POST",
+                data: {status:status},
+                dataType: "json",
+                success: function(data) {
+                    $('#activeMembersNum').html(data.num_members);
+                }
+            });
+        }
+
+        function find_active_vehicles() {
+            var status = 'ACTIVE';
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/vehicles/fetch_members_dashboard.php",
+                type: "POST",
+                data: {status:status},
+                dataType: "json",
+                success: function(data) {
+                    $('#numVehicles').html(data.num_vehicles);
+                    $('#loadVehicles').html(data.vehicles);
+                }
+            });
+        }
+
+    });
+
+</script>

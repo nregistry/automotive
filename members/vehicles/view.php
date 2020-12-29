@@ -29,7 +29,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                             Home
                         </a>
                     </li>
-                    <li class="breadcrumb-item active">Property</li>
+                    <li class="breadcrumb-item active">Profile</li>
                 </ol>
             </div>
         </div>

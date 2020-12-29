@@ -19,6 +19,8 @@
         <script src="<?php echo public_url();  ?>back/plugins/sweetalert2/sweetalert2.min.js"></script>
         <!-- Toastr -->
         <script src="<?php echo public_url();  ?>back/plugins/toastr/toastr.min.js"></script>
+        <!-- Ekko Lightbox -->
+        <script src="<?php echo public_url();  ?>back/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
         <!-- InputMask -->
         <script src="<?php echo public_url();  ?>back/plugins/moment/moment.min.js"></script>
         <script src="<?php echo public_url();  ?>back/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>

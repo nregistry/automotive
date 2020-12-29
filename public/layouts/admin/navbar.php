@@ -81,19 +81,23 @@
                             vehicles
                             <i class="fa fa-angle-left right"></i>
                             <span class="badge badge-info right">
-                                30
+                                <?php $vehicles = new Vehicles();
+                                $status = "ACTIVE";
+                                $all_vehicles = $vehicles->find_all_by_status($status);
+                                echo count($all_vehicles);
+                                ?>
                             </span>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>admin/expenses/categories.php?organization=<?php echo urlencode($current_org['id']); ?>" class="nav-link">
+                            <a href="<?php echo base_url(); ?>admin/vehicles/index.php" class="nav-link">
                                 <i class="fa fa-circle nav-icon"></i>
                                 <p>Active vehicles</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>admin/expenses/index.php?organization=<?php echo urlencode($current_org['id']); ?>" class="nav-link">
+                            <a href="<?php echo base_url(); ?>admin/vehicles/request.php" class="nav-link">
                                 <i class="fa fa-circle nav-icon"></i>
                                 <p>Requests</p>
                             </a>

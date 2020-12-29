@@ -34,7 +34,7 @@ $output = '';
 if($num_vehicles > 0) {
     foreach ($images as $image) {
         $output .= '<div class="col-sm-2">';
-        $output .= '<a href="' . public_url() . 'storage/vehicles/' . $image['image'] . '" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">';
+        $output .= '<a href="' . public_url() . 'storage/vehicles/' . $image['image'] . '" data-toggle="lightbox" data-title="Vehicle Images" data-gallery="gallery">';
         $output .= '<img src="' . public_url() . 'storage/vehicles/' . $image['image'] . '" class="img-fluid mb-2" alt="white sample" />';
         $output .= '</a>';
         $output .= '</div>';

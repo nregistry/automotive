@@ -13,7 +13,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>members/index.php">Home</a></li>
-                    <li class="breadcrumb-item active">Meber Profile</li>
+                    <li class="breadcrumb-item active">Member Profile</li>
                 </ol>
             </div>
         </div>
