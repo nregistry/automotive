@@ -82,40 +82,18 @@
                                 } else {
                                     $('.loggedInImage').html('<img src="<?php echo public_url(); ?>storage/users/' + data.image + '" class="img-circle elevation-2" alt="User Image">');
                                     $('.loggedInUserName').html(data.username);
-                                    // get organization id 
-                                    var organization = $.trim(data.organization_id);
-                                    localStorage.setItem('organization', organization);
                                     // profile
-                                    $('#userProfileImage').html('<img class="profile-user-img img-fluid img-circle" src="<?php echo public_url(); ?>storage/users/' + data.profile + '" alt="User profile picture">');
+                                    $('#userProfileImage').html('<img class="profile-user-img img-fluid img-circle" src="<?php echo public_url(); ?>storage/users/' + data.image + '" alt="User profile picture">');
                                     $('#userProfileUserName').html(data.username);
-                                }
-                            }
-                        });
-                    }
-
-
-                    function find_employee(employee_id) {
-                        var action = "FETCH_EMPLOYEE";
-                        $.ajax({
-                            url: "<?php echo base_url(); ?>api/employees/employees.php",
-                            type: "POST",
-                            data: {
-                                action: action,
-                                employee_id:employee_id
-                            },
-                            dataType: "json",
-                            success: function(data) {
-                                if (data.message == "errorEmployee") {
-                                    logout();
-                                } else {
-                                    // employee profile
-                                    $('#userProfileFullNames').html(data.employee_fullnames);
-                                    $('#userProfileEmailAddress').html(data.employee_email);
-                                    $('#userProfilePhone').html(data.employee_phone);
-                                    $('#userProfileDOB').html(data.employee_dob);
-                                    $('#userProfileGender').html(data.employee_gender);
-                                    $('#userProfileAddress').html(data.employee_address);
-                                    $('#userProfileLocation').html(data.employee_location);
+                                    $('#adminProfileImage').html('<img class="profile-user-img img-fluid img-circle" src="<?php echo public_url(); ?>storage/users/' + data.image + '" alt="User profile picture">');
+                                    $('#adminProfileUserName').html(data.username);
+                                    $('#adminProfileFullNames').html(data.fullnames);
+                                    $('#adminProfileEmailAddress').html(data.email);
+                                    $('#adminProfilePhone').html(data.phone);
+                                    $('#adminProfileDOB').html(data.dob);
+                                    $('#adminProfileGender').html(data.gender);
+                                    $('#adminProfileLocation').html(data.location);
+                                    $('#adminProfileStatus').html(data.status);
                                 }
                             }
                         });

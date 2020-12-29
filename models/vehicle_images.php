@@ -205,6 +205,29 @@ class Vehicle_Images
         }
     }
 
+    public function find_all_by_vehicle_id($vehicle_id = 0)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " ";
+        $query .= "WHERE vehicle_id = :vehicle_id ";
+        $query .= "ORDER BY id DESC";
+
+        // prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // execute statemrent 
+        if ($stmt->execute(array('vehicle_id'=>$vehicle_id))) {
+            // fetch data
+            $vehicle_object = array();
+            $count = $stmt->rowCount();
+            if ($count > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $vehicle_object[] = $row;
+                }
+            }
+            return $vehicle_object;
+        }
+    }
+
     public function find_by_id($id = 0)
     {
         $query = "SELECT * FROM " . $this->table_name . " ";

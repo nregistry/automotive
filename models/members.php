@@ -201,7 +201,7 @@ class Members
         } else {
             // Set object attributes to the form parameters
             $this->temp_path = $file['tmp_name'];
-            $this->admin_image = basename(time() . $file['name']);
+            $this->image = basename(time() . $file['name']);
             //Dont worry about the databaseyet
             return true;
         }
@@ -221,13 +221,13 @@ class Members
         }
 
         //2. cant see without filename and tempt location
-        if (empty($this->admin_image) || empty($this->temp_path)) {
+        if (empty($this->image) || empty($this->temp_path)) {
             $this->errors[] = "The file location was not available.";
             return false;
         }
 
         // 3. Determine the target_path
-        $target_path = PUBLIC_PATH . DS . 'storage' . DS . $this->upload_dir . DS . $this->admin_image;
+        $target_path = PUBLIC_PATH . DS . 'storage' . DS . $this->upload_dir . DS . $this->image;
 
         // 4. make sure the file doesn't exist
         if (file_exists($target_path)) {
@@ -258,11 +258,11 @@ class Members
     // change password
     public function find_by_password($id = 0, $password = "")
     {
-        $tenant = $this->find_by_id($id);
-        if ($tenant) {
+        $member = $this->find_by_id($id);
+        if ($member) {
             // find password
-            if (password_verify($password, $tenant['password'])) {
-                return $tenant;
+            if (password_verify($password, $member['password'])) {
+                return $member;
             }
         } else {
             return false;
