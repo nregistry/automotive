@@ -12,17 +12,11 @@ $data = array();
 
 $d = new DateTime();
 
-$members = new Members();
-
-$member_id  = htmlentities($session->user_id);
-
-$current_member = $members->find_by_id($member_id);
-
 $vehicles = new Vehicles();
 
 $status = $_POST['status'];
 
-$all_vehicles = $vehicles->find_all_by_member_id_and_status($current_member['id'], $status);
+$all_vehicles = $vehicles->find_all_by_status($status);
 
 $num_vehicles = count($all_vehicles);
 

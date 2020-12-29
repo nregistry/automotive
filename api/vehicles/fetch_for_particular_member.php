@@ -13,11 +13,17 @@ $connection = $database->connect();
 
 $members = new Members();
 
+$member_id = htmlentities($_POST['member_id']);
+
+$current_member = $members->find_by_id($member_id);
+
 $status = $_POST['status'];
 
-$all_members = $members->find_all_by_status($status);
+$vehicles = new Vehicles();
 
-$num_members = count($all_members);
+$member_vehicles = $vehicles->find_all_by_member_id_and_status($current_member["id"], $status);
+
+$num_vehicles = count($member_vehicles);
 
 // start on the query
 $query = '';
@@ -25,17 +31,18 @@ $query = '';
 // output array
 $output = array();
 
-$query .= "SELECT * FROM members ";
-
-$query .= "WHERE status = '{$status}' ";
+$query .= "SELECT * FROM vehicles ";
+$query .= "WHERE member_id = '{$current_member['id']}' AND status = '{$status}' ";
 
 // Bring  in search query
 if (isset($_POST["search"]["value"])) {
     $query .= "AND (";
-    $query .= "fullnames LIKE '%{$_POST["search"]["value"]}%' ";
-    $query .= "OR phone LIKE '%{$_POST["search"]["value"]}%' ";
-    $query .= "OR email LIKE '%{$_POST["search"]["value"]}%' ";
-    $query .= "OR location LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "vin_number LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR production_date LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR year LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR model LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR engine LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR trans LIKE '%{$_POST["search"]["value"]}%' ";
     $query .= ") ";
 }
 
@@ -60,12 +67,13 @@ $data = array();
 
 while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
     $sub_array = array();
-    $sub_array[] = '<img src="' . public_url() . 'storage/users/' . $row["image"] . '" alt="Product 1" class="img-circle img-size-32 mr-2">';
-    $sub_array[] = $row["fullnames"];
-    $sub_array[] = $row["phone"];
-    $sub_array[] = $row["email"];
-    $sub_array[] = $row["location"];
-    $sub_array[] = '<button id="' . htmlentities($row["id"]) . '" class="btn btn-success view"> <i class="fa fa-search"></i></button>';
+    $sub_array[] = '<img src="' . public_url() . 'storage/vehicles/' . htmlentities($row["profile"]) . '" alt="Product 1" class="img-circle img-size-32 mr-2">';
+    $sub_array[] = $row["vin_number"];
+    $sub_array[] = $row["production_date"];
+    $sub_array[] = $row["year"];
+    $sub_array[] = $row["model"];
+    $sub_array[] = $row["engine"];
+    $sub_array[] = $row["trans"];
     $data[] = $sub_array;
 }
 
@@ -73,7 +81,7 @@ while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
 $output = array(
     "draw"                =>    intval($_POST["draw"]),
     "recordsTotal"        =>     $filtered_rows,
-    "recordsFiltered"    =>    $num_members,
+    "recordsFiltered"    =>    $num_vehicles,
     "data"                =>    $data
 );
 

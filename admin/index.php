@@ -60,9 +60,9 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>4</h3>
+                        <h3 id="numVehicleRequests"></h3>
 
-                        <p>Vehicle Registration</p>
+                        <p>Vehicle Requests</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
@@ -75,7 +75,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>6</h3>
+                        <h3 id="numActiveVehicles"></h3>
 
                         <p>Vehicles</p>
                     </div>
@@ -110,12 +110,13 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
 
 <?php require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "footer.php"); ?>
 
-
 <script>
     $(document).ready(function() {
 
         find_active_members();
         find_requests_members();
+        find_active_vehicles();
+        find_requests_vehicles();
 
         function find_active_members() {
             var status = 'ACTIVE';
@@ -140,6 +141,33 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
                 dataType: "json",
                 success: function(data) {
                     $('#numMebersRequest').html(data.num_members);
+                }
+            });
+        }
+
+        
+        function find_active_vehicles() {
+            var status = 'ACTIVE';
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/vehicles/fetch_for_admin_dashboard.php",
+                type: "POST",
+                data: {status:status},
+                dataType: "json",
+                success: function(data) {
+                    $('#numActiveVehicles').html(data.num_vehicles);
+                }
+            });
+        }
+
+        function find_requests_vehicles() {
+            var status = 'REQUEST';
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/vehicles/fetch_for_admin_dashboard.php",
+                type: "POST",
+                data: {status:status},
+                dataType: "json",
+                success: function(data) {
+                    $('#numVehicleRequests').html(data.num_vehicles);
                 }
             });
         }

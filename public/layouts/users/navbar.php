@@ -64,6 +64,25 @@
                     </ul>
                 </li>
 
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-users"></i>
+                        <p>
+                            Members
+                            <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>members/members/index.php" class="nav-link">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Members</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 <li class="nav-header">SETTINGS</li>
 
                 <li class="nav-item has-treeview">
