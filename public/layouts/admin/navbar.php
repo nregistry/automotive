@@ -40,8 +40,6 @@
                     </ul>
                 </li>
 
-                
-
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
@@ -120,6 +118,30 @@
                             <a href="<?php echo base_url(); ?>admin/account/profile.php" class="nav-link seetingsBtn">
                                 <i class="fa fa-circle nav-icon"></i>
                                 <p>My Profile</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-cog"></i>
+                        <p>
+                            Roles
+                            <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>admin/roles/index.php" class="nav-link seetingsBtn">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Roles</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>admin/account/profile.php" class="nav-link seetingsBtn">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Permission</p>
                             </a>
                         </li>
                     </ul>
