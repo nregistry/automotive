@@ -26,14 +26,14 @@ if(!$current_vehicle){
 $vehicle->id = $current_vehicle['id'];
 $vehicle->admin_id = $current_vehicle['admin_id'];
 $vehicle->member_id = $current_vehicle['member_id'];
-$vehicle->vin_number = $current_vehicle['vin_number'];
+$vehicle->vin_number = $_POST['vin_number'];
 $vehicle->profile = $current_vehicle['profile'];
 $vehicle->production_date = $current_vehicle['production_date'];
 $vehicle->year = $current_vehicle['year'];
-$vehicle->model = $current_vehicle['model'];
-$vehicle->engine = $current_vehicle['engine'];
-$vehicle->trans = $current_vehicle['trans'];
-$vehicle->status = 'ACTIVE';
+$vehicle->model = $_POST['model'];
+$vehicle->engine = $_POST['engine'];
+$vehicle->trans = $_POST['trans'];
+$vehicle->status = $current_vehicle['status'];
 $vehicle->timestamp = $d->format('Y-m-d H:i:s');
 
 if($vehicle->save()){

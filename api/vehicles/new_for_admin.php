@@ -14,8 +14,8 @@ $data = array();
 
 $vehicle = new Vehicles();
 
-$vehicle->admin_id = 0;
-$vehicle->member_id = $_POST['member_id'];
+$vehicle->admin_id = $_POST['admin_id'];
+$vehicle->member_id = 0;
 $vehicle->vin_number = $_POST['vin_number'];
 $vehicle->profile = 'noimage.png';
 $vehicle->production_date = $_POST['production_date'];
@@ -24,7 +24,7 @@ $vehicle->year = $p_date->format('Y');
 $vehicle->model = $_POST['model'];
 $vehicle->engine = $_POST['engine'];
 $vehicle->trans = $_POST['trans'];
-$vehicle->status = 'REQUEST';
+$vehicle->status = 'ACTIVE';
 $vehicle->timestamp = $d->format('Y-m-d H:i:s');
 
 if($vehicle->save()){

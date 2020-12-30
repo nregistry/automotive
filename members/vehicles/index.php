@@ -83,25 +83,17 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
         }
 
         $(document).on('click', '.view', function() {
-            var customer_id = $(this).attr('id');
-            var action = "FETCH_CUSTOMER";
+            var vehicle_id = $(this).attr('id');
+            var action = "FETCH_VEHICLE";
             $.ajax({
-                url: "<?php echo base_url(); ?>api/customers/customers.php",
+                url: "<?php echo base_url(); ?>api/vehicles/vehicles.php",
                 type: "POST",
-                data: {
-                    action: action,
-                    customer_id: customer_id
-                },
+                data: {action:action, vehicle_id:vehicle_id},
                 dataType: "json",
                 success: function(data) {
-                    if (data.message == 'errorCustomer') {
-                        toastr.error('The customer selected does not exist');
-                        // .return false;
-                    } else {
-                        var cust_id = $.trim(data.id);
-                        localStorage.setItem('customer_id', cust_id);
-                        window.location.href = '<?php echo base_url(); ?>admin/customers/view.php?organization=' + organization_id + '&customer=' + cust_id;
-                    }
+                   var vehicle_id = $.trim(data.id);
+                   localStorage.setItem('vehicle', vehicle_id);
+                   window.location.href = '<?php echo base_url(); ?>members/vehicles/view.php?vehicle='+vehicle_id;
                 }
             });
         });

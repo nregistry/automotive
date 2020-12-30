@@ -10,6 +10,7 @@ class Vehicles
 
     // table properties
     public $id;
+    public $admin_id;
     public $member_id;
     public $vin_number;
     public $profile;
@@ -35,15 +36,15 @@ class Vehicles
         $query = "";
         if (empty($this->id)) {
             $query .= "INSERT INTO " . $this->table_name . "(";
-            $query .= "member_id, vin_number, profile, production_date, year, ";
+            $query .= "admin_id, member_id, vin_number, profile, production_date, year, ";
             $query .= "model, engine, trans, status, timestamp";
             $query .= ")VALUES(";
-            $query .= ":member_id, :vin_number, :profile, :production_date, :year, ";
+            $query .= ":admin_id, :member_id, :vin_number, :profile, :production_date, :year, ";
             $query .= ":model, :engine, :trans, :status, :timestamp";
             $query .= ")";
         }else{
             $query .= "UPDATE " . $this->table_name . " SET ";
-            $query .= "member_id = :member_id, vin_number = :vin_number, profile = :profile, production_date = :production_date, year = :year, ";
+            $query .= "admin_id = :admin_id, member_id = :member_id, vin_number = :vin_number, profile = :profile, production_date = :production_date, year = :year, ";
             $query .= "model = :model, engine = :engine, trans = :trans, status = :status, timestamp = :timestamp ";
             $query .= "WHERE id = :id";
         }
@@ -55,6 +56,7 @@ class Vehicles
         if (!empty($this->id)) {
             $this->id = htmlentities($this->id);
         }
+        $this->admin_id = htmlentities($this->admin_id);
         $this->member_id = htmlentities($this->member_id);
         $this->vin_number = htmlentities($this->vin_number);
         $this->profile = htmlentities($this->profile);
@@ -70,6 +72,7 @@ class Vehicles
         if (!empty($this->id)) {
             $stmt->bindParam(':id', $this->id);
         }
+        $stmt->bindParam(':admin_id', $this->admin_id);
         $stmt->bindParam(':member_id', $this->member_id);
         $stmt->bindParam(':vin_number', $this->vin_number);
         $stmt->bindParam(':profile', $this->profile);
@@ -263,6 +266,59 @@ class Vehicles
             return $vehicle;
         } else {
             return false;
+        }
+    }
+
+    public function find_all_by_admin_id($admin_id=0)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " ";
+        $query .= "WHERE admin_id = :admin_id ";
+        $query .= "ORDER BY id DESC";
+
+        // prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // clean up data
+        $admin_id = htmlentities($admin_id);
+
+        // execute statemrent 
+        if ($stmt->execute(array('admin_id' => $admin_id))) {
+            // fetch data
+            $vehicle_object = array();
+            $count = $stmt->rowCount();
+            if ($count > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $vehicle_object[] = $row;
+                }
+            }
+            return $vehicle_object;
+        }
+    }
+
+    public function find_all_by_admin_id_and_status($admin_id=0, $status = '')
+    {
+        $query = "SELECT * FROM " . $this->table_name . " ";
+        $query .= "WHERE admin_id = :admin_id AND status = :status ";
+        $query .= "ORDER BY id DESC";
+
+        // prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // clean up data
+        $admin_id = htmlentities($admin_id);
+        $status = htmlentities($status);
+
+        // execute statemrent 
+        if ($stmt->execute(array('admin_id' => $admin_id, 'status'=>$status))) {
+            // fetch data
+            $vehicle_object = array();
+            $count = $stmt->rowCount();
+            if ($count > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $vehicle_object[] = $row;
+                }
+            }
+            return $vehicle_object;
         }
     }
 

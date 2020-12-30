@@ -37,6 +37,7 @@ if (count($_FILES["file"]["name"]) > 0) {
             $statement = $connection->prepare($query);
             $statement->execute();
             echo 'success';
+            die();
         }
     }
 }
