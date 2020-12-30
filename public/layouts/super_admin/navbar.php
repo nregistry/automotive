@@ -77,7 +77,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li>   
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -92,6 +92,31 @@
                             <a href="<?php echo base_url(); ?>super_admin/vehicles/table.php" class="nav-link">
                                 <i class="fa fa-circle nav-icon"></i>
                                 <p>Vehicles Table</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>super_admin/vehicles/images_table.php" class="nav-link">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Vehicle Images Table</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-cogs"></i>
+                        <p>
+                            Roles and Permissions
+                            <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>super_admin/roles/roles_table.php" class="nav-link">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Roles Table</p>
                             </a>
                         </li>
 

@@ -40,8 +40,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                                 <th>Full Names</th>
                                 <th>Phone Number</th>
                                 <th>Email</th>
-                                <th>Location</th>
-                                <th>More</th>
+                                <th>View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,7 +69,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                 "serverSide": true,
                 "order": [],
                 "ajax": {
-                    url: "<?php echo base_url(); ?>api/members/fetch.php",
+                    url: "<?php echo base_url(); ?>api/members/fetch_for_members.php",
                     type: "POST",
                     data: {
                         status: status

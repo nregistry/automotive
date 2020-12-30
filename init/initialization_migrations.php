@@ -12,3 +12,6 @@ require_once(MIGRATION_PATH.DS.'vehicles.php');
 
 // bring in vehicle images migration
 require_once(MIGRATION_PATH.DS.'vehicle_images.php');
+
+// bring in roles migration
+require_once(MIGRATION_PATH.DS.'roles.php');
