@@ -16,6 +16,7 @@ class Admins
     public $admin_email;
     public $admin_dob;
     public $admin_gender;
+    public $admin_status;
     public $admin_location;
     public $admin_username;
     public $password;
@@ -39,12 +40,12 @@ class Admins
         if (empty($this->id)) {
             $query .= "INSERT INTO " . $this->table_name . "(";
             $query .= "admin_fullnames, admin_image , admin_phone, admin_email, ";
-            $query .= "admin_dob, admin_gender, admin_location, ";
+            $query .= "admin_dob, admin_gender, admin_status, admin_location, ";
             $query .= "admin_username, password, confirm_password, forgot_code, ";
             $query .= "created_date, edited_date";
             $query .= ")VALUES(";
             $query .= ":admin_fullnames, :admin_image , :admin_phone, :admin_email, ";
-            $query .= ":admin_dob, :admin_gender, :admin_location, ";
+            $query .= ":admin_dob, :admin_gender, :admin_status, :admin_location, ";
             $query .= ":admin_username, :password, :confirm_password, :forgot_code, ";
             $query .= ":created_date, :edited_date";
             $query .= ")";
@@ -63,6 +64,7 @@ class Admins
         $this->admin_email = htmlentities($this->admin_email);
         $this->admin_dob = htmlentities($this->admin_dob);
         $this->admin_gender = htmlentities($this->admin_gender);
+        $this->admin_status = htmlentities($this->admin_status);
         $this->admin_location = htmlentities($this->admin_location);
         $this->admin_username = htmlentities($this->admin_username);
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
@@ -81,6 +83,7 @@ class Admins
         $stmt->bindParam(':admin_email', $this->admin_email);
         $stmt->bindParam(':admin_dob', $this->admin_dob);
         $stmt->bindParam(':admin_gender', $this->admin_gender);
+        $stmt->bindParam(':admin_status', $this->admin_status);
         $stmt->bindParam(':admin_location', $this->admin_location);
         $stmt->bindParam(':admin_username', $this->admin_username);
         $stmt->bindParam(':password', $this->password);
@@ -105,7 +108,7 @@ class Admins
         if (!empty($this->id)) {
             $query .= "UPDATE " . $this->table_name . " SET ";
             $query .= "admin_fullnames = :admin_fullnames, admin_image = :admin_image , admin_phone = :admin_phone, admin_email = :admin_email, ";
-            $query .= "admin_dob = :admin_dob, admin_gender = :admin_gender, ";
+            $query .= "admin_dob = :admin_dob, admin_gender = :admin_gender, admin_status = :admin_status, ";
             $query .= "admin_location = :admin_location, admin_username = :admin_username, forgot_code = :forgot_code, ";
             $query .= "created_date = :created_date, edited_date = :edited_date ";
             $query .= "WHERE id = :id";
@@ -124,6 +127,7 @@ class Admins
         $this->admin_email = htmlentities($this->admin_email);
         $this->admin_dob = htmlentities($this->admin_dob);
         $this->admin_gender = htmlentities($this->admin_gender);
+        $this->admin_status = htmlentities($this->admin_status);
         $this->admin_location = htmlentities($this->admin_location);
         $this->admin_username = htmlentities($this->admin_username);
         $this->forgot_code = htmlentities($this->forgot_code);
@@ -140,6 +144,7 @@ class Admins
         $stmt->bindParam(':admin_email', $this->admin_email);
         $stmt->bindParam(':admin_dob', $this->admin_dob);
         $stmt->bindParam(':admin_gender', $this->admin_gender);
+        $stmt->bindParam(':admin_status', $this->admin_status);
         $stmt->bindParam(':admin_location', $this->admin_location);
         $stmt->bindParam(':admin_username', $this->admin_username);
         $stmt->bindParam(':forgot_code', $this->forgot_code);
@@ -385,6 +390,27 @@ class Admins
 
         // Execute query
         if ($stmt->execute(array('forgot_code' => $forgot_code))) {
+            $tenant = $stmt->fetch(PDO::FETCH_ASSOC);
+            // Set properties
+            return $tenant;
+        } else {
+            return false;
+        }
+    }
+
+    public function find_by_status($admin_status = 0)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " ";
+        $query .= "WHERE admin_status = :admin_status LIMIT 1";
+
+        //Prepare statement 
+        $stmt = $this->conn->prepare($query);
+
+        // clean data 
+        $admin_status = htmlentities($admin_status);
+
+        // Execute query
+        if ($stmt->execute(array('admin_status' => $admin_status))) {
             $tenant = $stmt->fetch(PDO::FETCH_ASSOC);
             // Set properties
             return $tenant;

@@ -63,4 +63,35 @@ if($_POST['action'] == 'TRANSFER_TO_MEMBER'){
     }    
 }
 
+if($_POST['action'] == 'TRANSFER_TO_ADMIN'){
+
+    $admins = new Admins();
+
+    $admin_id = htmlentities($_POST['admin_id']);
+
+    $current_admin = $admins->find_by_id($admin_id);
+
+    if (!$current_admin) {
+        $data['message'] = 'errorAdmin';
+        echo json_encode($data);
+        die();
+    }
+
+    $vehicle->id = $current_vehicle['id'];
+    $vehicle->admin_id = $current_admin['id'];
+    $vehicle->member_id = 0;
+    $vehicle->vin_number = $current_vehicle['vin_number'];
+    $vehicle->profile = $current_vehicle['profile'];
+    $vehicle->production_date = $current_vehicle['production_date'];
+    $vehicle->year = $current_vehicle['year'];
+    $vehicle->model = $current_vehicle['model'];
+    $vehicle->engine = $current_vehicle['engine'];
+    $vehicle->trans = $current_vehicle['trans'];
+    $vehicle->status = $current_vehicle['status'];
+    $vehicle->timestamp = $d->format('Y-m-d H:i:s');
+    if($vehicle->save()){
+        $data['message'] = 'success';
+    }    
+}
+
 echo json_encode($data);

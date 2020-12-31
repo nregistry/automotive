@@ -302,7 +302,25 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                             <span id="transferVehicleMessage"></span>
                         </div>
 
-
+                        <div id="transferVehicleAdminContainer" class="form-group">
+                            <label for="transferVehicleAdmin">Admins</label>
+                            <select name="admin_id" id="transferVehicleAdmin" class="form-control">
+                                <option disabled selected>Choose Admin</option>
+                                <?php
+                                $admin = new Admins();
+                                $status = 'DEFAULT';
+                                $all_admins = $admin->find_all();
+                                if (count($all_admins) > 0) {
+                                    foreach ($all_admins as $admin) { ?>
+                                        <option value="<?php echo htmlentities($admin['id']) ?>">
+                                            <?php echo htmlentities($admin['admin_fullnames']); ?>
+                                        </option>
+                                <?php }
+                                }
+                                ?>
+                            </select>
+                            <span id="transferVehicleMessage"></span>
+                        </div>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -314,8 +332,6 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
         <!-- /.modal-dialog -->
     </div>
     <!-- transfer vehicles modals -->
-
-
 </section>
 <!-- /.content -->
 
@@ -518,7 +534,9 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
         });
 
         $('#transferVehicleMembersContainer').fadeOut(900);
+        $('#transferVehicleAdminContainer').fadeOut(900);
         $('#transferVehicleAccountsContainer').fadeIn(800);
+        
         // transfer 
         $('.transferVehicleBtn').click(function(event) {
             event.preventDefault();
@@ -545,6 +563,13 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
             if(account == 'MEMBERS'){
                 $('#transferVehicleMembersContainer').fadeIn(800);
                 $('#transferVehicleAccountsContainer').fadeOut(900);
+                $('#transferVehicleAdminContainer').fadeOut(900);
+            }
+
+            if(account == 'ADMIN'){
+                $('#transferVehicleMembersContainer').fadeOut(800);
+                $('#transferVehicleAccountsContainer').fadeOut(900);
+                $('#transferVehicleAdminContainer').fadeIn(800);
             }
         });
 
@@ -579,6 +604,33 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                 }
             });
         });
+
+        // submit admin
+        $('#transferVehicleAdmin').on('change',  function(){
+            var admin_id = $(this).val();
+            var action = "TRANSFER_TO_ADMIN";
+            var vehicle_id = $('#transferVehicleId').val();
+            var form_data = 'action='+action+'&vehicle_id='+vehicle_id+'&admin_id='+admin_id;
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/vehicles/member_transfer.php",
+                type: "POST",
+                data: form_data,
+                dataType: "json",
+                beforeSend:function(){
+                    $('#transferVehicleMessage').html('<br><p class="text-primary">Transferring vehicle</p>');
+                },
+                success: function(data) {
+                    if(data.message == 'success'){
+                        $('#transferVehicleMessage').html('<br><p class="text-success">Success</p>');
+                        toastr.success('Vehicle Successfully Transfered');
+                        $('#transferVehicleMembers').val('');
+                        $('#transferVehicleModal').modal('hide');
+                        window.location.href = '<?php echo base_url(); ?>members/vehicles/index.php';
+                    }
+                }
+            });
+        });
+
 
     });
 </script>

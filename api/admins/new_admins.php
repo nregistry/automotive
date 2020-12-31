@@ -20,6 +20,17 @@ $data = array();
 
 $admins = new Admins();
 
+// find if there is any admins 
+$all_admins = $admins->find_all();
+
+$count = count($all_admins);
+
+if($count > 1){
+    $data['message'] = "existingAdmins";
+    echo json_encode($data);
+    die();
+}
+
 if($_POST['password'] !== $_POST['confirm']){
     $data['message'] = "errorPassword";
     echo json_encode($data);
@@ -41,6 +52,7 @@ if($check_admin_email){
 $admins->admin_phone = $_POST['phone'];
 $admins->admin_dob = $d->format("Y-m-d");
 $admins->admin_gender = $_POST['gender'];
+$admins->admin_status = 'DEFAULT';
 $admins->admin_location = $_POST['location'];
 $admins->admin_username = $_POST['username'];
 $admins->password = $_POST['password'];

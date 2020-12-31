@@ -28,6 +28,7 @@ class Admins_Migration
         $query .= "admin_email VARCHAR(200) NOT NULL, ";
         $query .= "admin_dob DATE NOT NULL, ";
         $query .= "admin_gender VARCHAR(200) NOT NULL, ";
+        $query .= "admin_status VARCHAR(200) NOT NULL, ";
         $query .= "admin_location VARCHAR(200) NOT NULL, ";
         $query .= "admin_username VARCHAR(200) NOT NULL, ";
         $query .= "password VARCHAR(200) NOT NULL, ";
