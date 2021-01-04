@@ -24,7 +24,6 @@ if(!$current_vehicle){
     die();
 }
 $vehicle->id = $current_vehicle['id'];
-$vehicle->admin_id = $current_vehicle['admin_id'];
 $vehicle->member_id = $current_vehicle['member_id'];
 $vehicle->vin_number = $_POST['vin_number'];
 $vehicle->profile = $current_vehicle['profile'];
@@ -34,6 +33,8 @@ $vehicle->model = $_POST['model'];
 $vehicle->engine = $_POST['engine'];
 $vehicle->trans = $_POST['trans'];
 $vehicle->status = $current_vehicle['status'];
+$vehicle->colors = $current_vehicle['colors'];
+$vehicle->notes = $current_vehicle['notes'];
 $vehicle->timestamp = $d->format('Y-m-d H:i:s');
 
 if($vehicle->save()){

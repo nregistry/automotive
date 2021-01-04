@@ -37,6 +37,7 @@ $output .= '<th>Year</th>';
 $output .= '<th>Model</th>';
 $output .= '<th>Engine</th>';
 $output .= '<th>Trans</th>';
+$output .= '<th>Color</th>';
 $output .= '</tr>';
 $output .= '</thead>';
 $output .= '<tbody>';
@@ -51,6 +52,7 @@ if ($num_vehicles > 0) {
         $output .= '<td>' . htmlentities($vehicle["model"]) . '</td>';
         $output .= '<td>' . htmlentities($vehicle["engine"]) . '</td>';
         $output .= '<td>' . htmlentities($vehicle["trans"]) . '</td>';
+        $output .= '<td>' . htmlentities($vehicle["colors"]) . '</td>';
         $output .= '</tr>';
     }
     

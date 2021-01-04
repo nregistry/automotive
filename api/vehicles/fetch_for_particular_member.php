@@ -74,6 +74,7 @@ while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
     $sub_array[] = $row["model"];
     $sub_array[] = $row["engine"];
     $sub_array[] = $row["trans"];
+    $sub_array[] = $row["colors"];
     $data[] = $sub_array;
 }
 

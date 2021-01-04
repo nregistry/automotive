@@ -45,7 +45,9 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="<?php echo public_url(); ?>storage/vehicles/<?php echo htmlentities($current_vehicle['profile']); ?>" alt="User profile picture">
+                            <a href="#!" id="<?php echo htmlentities($current_vehicle['id']); ?>" class="viewProfileImageBtn">
+                                <img class="profile-user-img img-fluid img-circle" src="<?php echo public_url(); ?>storage/vehicles/<?php echo htmlentities($current_vehicle['profile']); ?>" alt="User profile picture">
+                            </a>
                         </div>
 
                         <h3 class="profile-username text-center">
@@ -59,31 +61,31 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
-
-                <!-- Settings Box -->
-                <!-- Settings Box -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Settings</h3>
+                <?php if ($role_name == 'MEMBER') { ?>
+                    <!-- Settings Box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Settings</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="nav nav-pills flex-column">
+                                <li class="nav-item active">
+                                    <a href="#" id="<?php echo htmlentities($current_vehicle['id']); ?>" class="nav-link changeProfileBtn">
+                                        <i class="fa fa-cog"></i> Change Profile
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" id="<?php echo htmlentities($current_vehicle['id']); ?>" class="nav-link settingsBtn">
+                                        <i class="fa fa-cogs"></i> Settings
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="card-body p-0">
-                        <ul class="nav nav-pills flex-column">
-                            <li class="nav-item active">
-                                <a href="#" id="<?php echo htmlentities($current_vehicle['id']); ?>" class="nav-link changeProfileBtn">
-                                    <i class="fa fa-cog"></i> Change Profile
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" id="<?php echo htmlentities($current_vehicle['id']); ?>" class="nav-link settingsBtn">
-                                    <i class="fa fa-cogs"></i> Settings
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-                <a href="#" id="<?php echo htmlentities($current_vehicle['id']); ?>" class="btn btn-primary btn-block mb-3 transferVehicleBtn">Transfer Vehicle</a>
+                    <!-- /.card -->
+                    <a href="#" id="<?php echo htmlentities($current_vehicle['id']); ?>" class="btn btn-primary btn-block mb-3 transferVehicleBtn">Transfer Vehicle</a>
+                <?php } ?>
             </div>
             <!-- /.col -->
             <div class="col-md-9">
@@ -174,7 +176,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="changeProfileSubmitBtn" class="btn btn-primary">Save Logo</button>
+                        <button type="submit" id="changeProfileSubmitBtn" class="btn btn-primary">Save Image</button>
                     </div>
                 </form>
             </div>
@@ -273,12 +275,11 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                             <input type="hidden" class="form-control" name="vehicle_id" id="transferVehicleId" />
                         </div>
 
-                        <div id="transferVehicleAccountsContainer"  class="form-group">
+                        <div id="transferVehicleAccountsContainer" class="form-group">
                             <label for="transferVehicleAccounts">Accounts</label>
                             <select id="transferVehicleAccounts" class="form-control">
                                 <option disabled selected>Choose Accounts</option>
                                 <option value="MEMBERS">MEMBERS</option>
-                                <option value="ADMIN">ADMIN</option>
                             </select>
                         </div>
 
@@ -301,26 +302,6 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                             </select>
                             <span id="transferVehicleMessage"></span>
                         </div>
-
-                        <div id="transferVehicleAdminContainer" class="form-group">
-                            <label for="transferVehicleAdmin">Admins</label>
-                            <select name="admin_id" id="transferVehicleAdmin" class="form-control">
-                                <option disabled selected>Choose Admin</option>
-                                <?php
-                                $admin = new Admins();
-                                $status = 'DEFAULT';
-                                $all_admins = $admin->find_all();
-                                if (count($all_admins) > 0) {
-                                    foreach ($all_admins as $admin) { ?>
-                                        <option value="<?php echo htmlentities($admin['id']) ?>">
-                                            <?php echo htmlentities($admin['admin_fullnames']); ?>
-                                        </option>
-                                <?php }
-                                }
-                                ?>
-                            </select>
-                            <span id="transferVehicleMessage"></span>
-                        </div>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -332,6 +313,26 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
         <!-- /.modal-dialog -->
     </div>
     <!-- transfer vehicles modals -->
+
+    <div class="modal fade" id="viewProfileImageModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">View Profile Image</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="viewImageProfileVal" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--view profile  modals -->
 </section>
 <!-- /.content -->
 
@@ -536,7 +537,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
         $('#transferVehicleMembersContainer').fadeOut(900);
         $('#transferVehicleAdminContainer').fadeOut(900);
         $('#transferVehicleAccountsContainer').fadeIn(800);
-        
+
         // transfer 
         $('.transferVehicleBtn').click(function(event) {
             event.preventDefault();
@@ -558,15 +559,15 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
         });
 
         // check account selected 
-        $('#transferVehicleAccounts').on('change', function(){
+        $('#transferVehicleAccounts').on('change', function() {
             var account = $(this).val();
-            if(account == 'MEMBERS'){
+            if (account == 'MEMBERS') {
                 $('#transferVehicleMembersContainer').fadeIn(800);
                 $('#transferVehicleAccountsContainer').fadeOut(900);
                 $('#transferVehicleAdminContainer').fadeOut(900);
             }
 
-            if(account == 'ADMIN'){
+            if (account == 'ADMIN') {
                 $('#transferVehicleMembersContainer').fadeOut(800);
                 $('#transferVehicleAccountsContainer').fadeOut(900);
                 $('#transferVehicleAdminContainer').fadeIn(800);
@@ -574,21 +575,21 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
         });
 
         // submit members
-        $('#transferVehicleMembers').on('change', function(){
+        $('#transferVehicleMembers').on('change', function() {
             var member_id = $(this).val();
             var action = "TRANSFER_TO_MEMBER";
             var vehicle_id = $('#transferVehicleId').val();
-            var form_data = 'action='+action+'&vehicle_id='+vehicle_id+'&member_id='+member_id;
+            var form_data = 'action=' + action + '&vehicle_id=' + vehicle_id + '&member_id=' + member_id;
             $.ajax({
                 url: "<?php echo base_url(); ?>api/vehicles/member_transfer.php",
                 type: "POST",
                 data: form_data,
                 dataType: "json",
-                beforeSend:function(){
+                beforeSend: function() {
                     $('#transferVehicleMessage').html('<br><p class="text-primary">Transferring vehicle</p>');
                 },
                 success: function(data) {
-                    if(data.message == 'success'){
+                    if (data.message == 'success') {
                         $('#transferVehicleMessage').html('<br><p class="text-success">Success</p>');
                         toastr.success('Vehicle Successfully Transfered');
                         $('#transferVehicleMembers').val('');
@@ -596,7 +597,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                         window.location.href = '<?php echo base_url(); ?>members/vehicles/index.php';
                     }
 
-                    if(data.message == 'sameMember'){
+                    if (data.message == 'sameMember') {
                         $('#transferVehicleMessage').html('<br><p class="text-danger">Error</p>');
                         toastr.error('You cannot transfer a vehicle to yourself');
                         return false;
@@ -606,21 +607,21 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
         });
 
         // submit admin
-        $('#transferVehicleAdmin').on('change',  function(){
+        $('#transferVehicleAdmin').on('change', function() {
             var admin_id = $(this).val();
             var action = "TRANSFER_TO_ADMIN";
             var vehicle_id = $('#transferVehicleId').val();
-            var form_data = 'action='+action+'&vehicle_id='+vehicle_id+'&admin_id='+admin_id;
+            var form_data = 'action=' + action + '&vehicle_id=' + vehicle_id + '&admin_id=' + admin_id;
             $.ajax({
                 url: "<?php echo base_url(); ?>api/vehicles/member_transfer.php",
                 type: "POST",
                 data: form_data,
                 dataType: "json",
-                beforeSend:function(){
+                beforeSend: function() {
                     $('#transferVehicleMessage').html('<br><p class="text-primary">Transferring vehicle</p>');
                 },
                 success: function(data) {
-                    if(data.message == 'success'){
+                    if (data.message == 'success') {
                         $('#transferVehicleMessage').html('<br><p class="text-success">Success</p>');
                         toastr.success('Vehicle Successfully Transfered');
                         $('#transferVehicleMembers').val('');
@@ -631,6 +632,23 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
             });
         });
 
-
+        $('.viewProfileImageBtn').click(function(e) {
+            e.preventDefault();
+            var vehicle_id = $(this).attr('id');
+            var action = 'FETCH_VEHICLE';
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/vehicles/vehicles.php",
+                type: "POST",
+                data: {
+                    vehicle_id: vehicle_id,
+                    action: action
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('#viewImageProfileVal').html('<img src="<?php echo public_url(); ?>storage/vehicles/' + data.profile + '" class="img-fluid" style="width: 100%;">')
+                    $('#viewProfileImageModal').modal('show');
+                }
+            });
+        });
     });
 </script>

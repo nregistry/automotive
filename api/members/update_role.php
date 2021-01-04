@@ -23,17 +23,27 @@ if(!$current_member){
     echo json_encode($data);
     die();
 }
+
+$roles = new Roles();
+$current_role = $roles->find_by_id($_POST['role_id']);
+	
+if(!$current_role){
+    $data['message'] = "errorRole";
+    echo json_encode($data);
+    die();
+}
+
 $members->id = $current_member['id'];
-$members->role_id = $current_member['role_id'];
+$members->role_id = $current_role['id'];
 $members->fullnames = $current_member['fullnames'];
 $members->image = $current_member['image'];
 $members->phone = $current_member['phone'];
-$members->email = $_POST['email'];
+$members->email = $current_member['email'];
 $members->dob = $current_member['dob'];
 $members->gender = $current_member['gender'];
 $members->location = $current_member['location'];
 $members->status = $current_member['status'];
-$members->username = $_POST['username'];
+$members->username = $current_member['username'];
 $members->forgot_code = $current_member['forgot_code'];
 $members->created_date = $current_member['created_date'];
 $members->edited_date = $d->format("Y-m-d H:i:s");

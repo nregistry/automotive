@@ -30,6 +30,7 @@ if(!$current_member){
     die();
 }
 $members->id = $current_member['id'];
+$members->role_id = $current_member['role_id'];
 $members->fullnames = $current_member['fullnames'];
 $members->image = $current_member['image'];
 $members->phone = $current_member['phone'];

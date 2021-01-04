@@ -37,7 +37,6 @@ if (!$current_member) {
 }
 
 $vehicle->id = $current_vehicle['id'];
-$vehicle->admin_id = 0;
 $vehicle->member_id = $current_member['id'];
 $vehicle->vin_number = $current_vehicle['vin_number'];
 $vehicle->profile = $current_vehicle['profile'];
@@ -47,6 +46,8 @@ $vehicle->model = $current_vehicle['model'];
 $vehicle->engine = $current_vehicle['engine'];
 $vehicle->trans = $current_vehicle['trans'];
 $vehicle->status = $current_vehicle['status'];
+$vehicle->colors = $current_vehicle['colors'];
+$vehicle->notes = $current_vehicle['notes'];
 $vehicle->timestamp = $d->format('Y-m-d H:i:s');
 if ($vehicle->save()) {
     $data['message'] = 'success';

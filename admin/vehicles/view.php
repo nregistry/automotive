@@ -45,7 +45,9 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "header.php"); ?
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="<?php echo public_url(); ?>storage/vehicles/<?php echo htmlentities($current_vehicle['profile']); ?>" alt="User profile picture">
+                            <a href="#!" id="<?php echo htmlentities($current_vehicle['id']); ?>" class="viewProfileImageBtn">  
+                                <img class="profile-user-img img-fluid img-circle" src="<?php echo public_url(); ?>storage/vehicles/<?php echo htmlentities($current_vehicle['profile']); ?>" alt="User profile picture">
+                            </a>
                         </div>
 
                         <h3 class="profile-username text-center">
@@ -118,6 +120,26 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "header.php"); ?
         </div>
         <!-- /.row -->
     </div><!-- /.container-fluid -->
+    
+    <div class="modal fade" id="viewProfileImageModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">View Profile Image</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="viewImageProfileVal" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- change logo modals -->
 </section>
 <!-- /.content -->
 
@@ -150,6 +172,25 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "header.php"); ?
                 }
             });
         }
-        
+
+        $('.viewProfileImageBtn').click(function(e){
+            e.preventDefault();
+            var vehicle_id = $(this).attr('id');
+            var action = 'FETCH_VEHICLE';
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/vehicles/vehicles.php",
+                type: "POST",
+                data: {
+                    vehicle_id: vehicle_id,
+                    action:action
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('#viewImageProfileVal').html('<img src="<?php echo public_url(); ?>storage/vehicles/'+data.profile+'" class="img-fluid" style="width: 100%;">')
+                    $('#viewProfileImageModal').modal('show');
+                }
+            });
+        });
+
     });
 </script>

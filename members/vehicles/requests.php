@@ -30,11 +30,13 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Requested Vehicles Table</h3>
-                    <div class="card-tools">
-                        <a href="#" id="newVehicleRequestBtn" class="btn btn-tool btn-sm btn-success">
-                            <i class="fa fa-plus"></i> MAKE REQUEST
-                        </a>
-                    </div>
+                    <?php if ($role_name == 'MEMBER') { ?>
+                        <div class="card-tools">
+                            <a href="#" id="newVehicleRequestBtn" class="btn btn-tool btn-sm btn-success">
+                                <i class="fa fa-plus"></i> MAKE REQUEST
+                            </a>
+                        </div>
+                    <?php } ?>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive">
@@ -48,7 +50,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                                 <th>Model</th>
                                 <th>Engine</th>
                                 <th>Trans</th>
-                                <th>View</th>
+                                <th>Colors</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -100,6 +102,16 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                         <div class="form-group">
                             <label for="newVehicleRequestsTrans">Trans</label>
                             <input type="text" id="newVehicleRequestsTrans" class="form-control" name="trans" placeholder="Enter Vehicle Trans" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newVehicleRequestsColors">Color</label>
+                            <input type="text" id="newVehicleRequestsColors" class="form-control" name="colors" placeholder="Enter Vehicle Color" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newVehicleRequestsNotes">Notes</label>
+                            <textarea name="notes" id="newVehicleRequestsNotes" class="form-control" placeholder="Enter Vehicle Notes"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -156,7 +168,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
             });
         });
 
-        $('#newVehicleRequestForm').submit(function(event){
+        $('#newVehicleRequestForm').submit(function(event) {
             event.preventDefault();
             var form_data = $(this).serialize();
             $.ajax({
@@ -164,14 +176,14 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                 type: "POST",
                 data: form_data,
                 dataType: "json",
-                beforeSend:function(){
+                beforeSend: function() {
                     $('#newVehicleRequestsSubmitBtn').html('Loading...');
                 },
                 success: function(data) {
-                    if(data.message == 'success'){
+                    if (data.message == 'success') {
                         $('#newVehicleRequestsSubmitBtn').html('Success');
                         $('#loadVehicles').DataTable().destroy();
-                        find_vehicles(); 
+                        find_vehicles();
                         $('#newVehicleRequestForm')[0].reset();
                         $('#newVehicleRequestModal').modal('hide');
                     }
@@ -179,18 +191,21 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
             });
         });
 
-        $(document).on('click', '.view', function(){
+        $(document).on('click', '.view', function() {
             var vehicle_id = $(this).attr('id');
             var action = "FETCH_VEHICLE";
             $.ajax({
                 url: "<?php echo base_url(); ?>api/vehicles/vehicles.php",
                 type: "POST",
-                data: {action:action, vehicle_id:vehicle_id},
+                data: {
+                    action: action,
+                    vehicle_id: vehicle_id
+                },
                 dataType: "json",
                 success: function(data) {
-                   var vehicle_id = $.trim(data.id);
-                   localStorage.setItem('vehicle', vehicle_id);
-                   window.location.href = '<?php echo base_url(); ?>members/vehicles/view.php?vehicle='+vehicle_id;
+                    var vehicle_id = $.trim(data.id);
+                    localStorage.setItem('vehicle', vehicle_id);
+                    window.location.href = '<?php echo base_url(); ?>members/vehicles/view.php?vehicle=' + vehicle_id;
                 }
             });
         });

@@ -28,7 +28,15 @@ if($password !== $confirm){
     echo json_encode($data);
     die();
 }
-
+$roles = new Roles();
+$role_name = 'GUEST';
+$current_role = $roles->find_by_role_name($role_name);
+if(!$current_role){
+    $data['message'] = 'errorRole';
+    echo json_encode($data);
+    die();
+}
+$members->role_id = $current_role['id'];
 $members->fullnames = $_POST['fullnames'];
 $members->image = 'noimage.png';
 $members->phone = $_POST['phone'];

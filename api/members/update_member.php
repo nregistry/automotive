@@ -24,6 +24,7 @@ if(!$current_member){
     die();
 }
 $members->id = $current_member['id'];
+$members->role_id = $current_member['role_id'];
 $members->fullnames = $_POST['fullnames'];
 $members->image = $current_member['image'];
 $members->phone = $_POST['phone'];

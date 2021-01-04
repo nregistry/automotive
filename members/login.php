@@ -34,10 +34,10 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "users" . DS . "login-header.ph
 </form>
 
 <p class="mb-1">
-    <a href="<?php echo base_url(); ?>admin/forgot.php">I forgot my password</a>
+    <a href="<?php echo base_url(); ?>members/forgot.php">I forgot my password</a>
 </p>
 <p class="mb-0">
-    <a href="<?php echo base_url(); ?>admin/register.php" class="text-center">Register a new membership</a>
+    <a href="<?php echo base_url(); ?>members/register.php" class="text-center">Register a new membership</a>
 </p>
 
 <?php require_once(PUBLIC_PATH . DS . "layouts" . DS . "users" . DS . "login-footer.php"); ?>

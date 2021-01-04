@@ -22,6 +22,7 @@ class Members_Migration
     {
         $query = "CREATE TABLE IF NOT EXISTS " . $this->table_name . "(";
         $query .= "id INT(11) UNSIGNED  NOT NULL PRIMARY KEY AUTO_INCREMENT, ";
+        $query .= "role_id INT(11) UNSIGNED  NOT NULL, ";
         $query .= "fullnames VARCHAR(100) NOT NULL, ";
         $query .= "image VARCHAR(200) NOT NULL, ";
         $query .= "phone VARCHAR(200) NOT NULL, ";

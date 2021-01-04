@@ -27,6 +27,7 @@ if(!$current_member){
 if(isset($_FILES['photo']['name'])){
 
     $members->id = $current_member['id'];
+    $members->role_id = $current_member['role_id'];
     $members->fullnames = $current_member['fullnames'];
     $members->attach_file($_FILES['photo']);
     $members->phone = $current_member['phone'];

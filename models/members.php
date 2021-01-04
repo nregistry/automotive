@@ -10,6 +10,7 @@ class Members
 
     // table properties
     public $id;
+    public $role_id;
     public $fullnames;
     public $image;
     public $phone;
@@ -39,12 +40,12 @@ class Members
         $query = "";
         if (empty($this->id)) {
             $query .= "INSERT INTO " . $this->table_name . "(";
-            $query .= "fullnames, image, phone, email, ";
+            $query .= "role_id, fullnames, image, phone, email, ";
             $query .= "dob, gender, location, status, ";
             $query .= "username, password, confirm_password, forgot_code, ";
             $query .= "created_date, edited_date";
             $query .= ")VALUES(";
-            $query .= ":fullnames, :image, :phone, :email, ";
+            $query .= ":role_id, :fullnames, :image, :phone, :email, ";
             $query .= ":dob, :gender, :location, :status, ";
             $query .= ":username, :password, :confirm_password, :forgot_code, ";
             $query .= ":created_date, :edited_date";
@@ -58,6 +59,7 @@ class Members
         if (!empty($this->id)) {
             $this->id = htmlentities($this->id);
         }
+        $this->role_id = htmlentities($this->role_id);
         $this->fullnames = htmlentities($this->fullnames);
         $this->image = htmlentities($this->image);
         $this->phone = htmlentities($this->phone);
@@ -77,6 +79,7 @@ class Members
         if (!empty($this->id)) {
             $stmt->bindParam(':id', $this->id);
         }
+        $stmt->bindParam(':role_id', $this->role_id);
         $stmt->bindParam(':fullnames', $this->fullnames);
         $stmt->bindParam(':image', $this->image);
         $stmt->bindParam(':phone', $this->phone);
@@ -107,7 +110,7 @@ class Members
         $query = "";
         if (!empty($this->id)) {
             $query .= "UPDATE " . $this->table_name . " SET ";
-            $query .= "fullnames = :fullnames, image = :image, phone = :phone, email = :email, ";
+            $query .= "role_id = :role_id, fullnames = :fullnames, image = :image, phone = :phone, email = :email, ";
             $query .= "dob = :dob, gender = :gender, location = :location, status = :status, ";
             $query .= "username = :username, forgot_code = :forgot_code, ";
             $query .= "created_date = :created_date, edited_date = :edited_date ";
@@ -121,6 +124,7 @@ class Members
         if (!empty($this->id)) {
             $this->id = htmlentities($this->id);
         }
+        $this->role_id = htmlentities($this->role_id);
         $this->fullnames = htmlentities($this->fullnames);
         $this->image = htmlentities($this->image);
         $this->phone = htmlentities($this->phone);
@@ -138,6 +142,7 @@ class Members
         if (!empty($this->id)) {
             $stmt->bindParam(':id', $this->id);
         }
+        $stmt->bindParam(':role_id', $this->role_id);
         $stmt->bindParam(':fullnames', $this->fullnames);
         $stmt->bindParam(':image', $this->image);
         $stmt->bindParam(':phone', $this->phone);

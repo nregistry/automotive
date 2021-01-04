@@ -14,7 +14,6 @@ $data = array();
 
 $vehicle = new Vehicles();
 
-$vehicle->admin_id = 0;
 $vehicle->member_id = $_POST['member_id'];
 $vehicle->vin_number = $_POST['vin_number'];
 $vehicle->profile = 'noimage.png';
@@ -25,6 +24,8 @@ $vehicle->model = $_POST['model'];
 $vehicle->engine = $_POST['engine'];
 $vehicle->trans = $_POST['trans'];
 $vehicle->status = 'REQUEST';
+$vehicle->colors = $_POST['colors'];
+$vehicle->notes = $_POST['notes'];
 $vehicle->timestamp = $d->format('Y-m-d H:i:s');
 
 if($vehicle->save()){

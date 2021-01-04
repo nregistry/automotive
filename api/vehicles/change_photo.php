@@ -26,7 +26,6 @@ if (!$current_vehicle) {
 
 if (isset($_FILES['image']['name'])) {
     $vehicle->id = $current_vehicle['id'];
-    $vehicle->admin_id = $current_vehicle['admin_id'];
     $vehicle->member_id = $current_vehicle['member_id'];
     $vehicle->vin_number = $current_vehicle['vin_number'];
     $vehicle->attach_file($_FILES['image']);
@@ -36,6 +35,8 @@ if (isset($_FILES['image']['name'])) {
     $vehicle->engine = $current_vehicle['engine'];
     $vehicle->trans = $current_vehicle['trans'];
     $vehicle->status = $current_vehicle['status'];
+    $vehicle->colors = $current_vehicle['colors'];
+    $vehicle->notes = $current_vehicle['notes'];
     $vehicle->timestamp = $d->format('Y-m-d H:i:s');
 
     if ($vehicle->save_image()) {

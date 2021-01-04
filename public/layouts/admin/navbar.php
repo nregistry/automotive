@@ -88,12 +88,6 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>admin/vehicles/vehicle.php" class="nav-link">
-                                <i class="fa fa-circle nav-icon"></i>
-                                <p>My vehicles</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="<?php echo base_url(); ?>admin/vehicles/index.php" class="nav-link">
                                 <i class="fa fa-circle nav-icon"></i>
                                 <p>Active vehicles</p>

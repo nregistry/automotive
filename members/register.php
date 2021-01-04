@@ -88,7 +88,7 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "users" . DS . "login-header.ph
     </div>
 </form>
 
-<a href="<?php echo base_url(); ?>users/login.php" class="text-center">I already have a membership</a>
+<a href="<?php echo base_url(); ?>members/login.php" class="text-center">I already have a membership</a>
 
 <?php require_once(PUBLIC_PATH . DS . "layouts" . DS . "users" . DS . "login-footer.php"); ?>
 

@@ -67,6 +67,7 @@ while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
     $sub_array[] = $row["model"];
     $sub_array[] = $row["engine"];
     $sub_array[] = $row["trans"];
+    $sub_array[] = $row["colors"];
     $sub_array[] = '<button id="' . htmlentities($row["id"]) . '" class="text-muted btn btn-info view"> <i class="fa fa-eye"></i></button>';
     $data[] = $sub_array;
 }

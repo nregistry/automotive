@@ -32,6 +32,14 @@ if ($status == 'REQUEST') {
         redirect_to($suucess_url);
     }
 }
+
+$roles = new Roles();
+
+$role_id = htmlentities($current_members['role_id']);
+
+$current_role = $roles->find_by_id($role_id);
+
+$role_name = htmlentities($current_role['role_name']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
