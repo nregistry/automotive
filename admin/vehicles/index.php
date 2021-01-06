@@ -43,6 +43,7 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "header.php"); ?
                                 <th>Model</th>
                                 <th>Engine</th>
                                 <th>Trans</th>
+                                <th>Color</th>
                                 <th>View</th>
                             </tr>
                         </thead>

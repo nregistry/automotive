@@ -232,7 +232,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
     <div class="modal fade" id="uploadImagesModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="uploadImagesForm">
+                <form action="<?php echo base_url(); ?>api/vehicles/upload_images.php" enctype="multipart/form-data" method="post">
                     <div class="modal-header">
                         <h4 class="modal-title">Upload Vehicle Images</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -245,11 +245,12 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                         </div>
                         <div class="form-group">
                             <label for="uploadImagesVal">Images</label>
-                            <input type="file" id="uploadImagesVal" name="images" multiple />
+                            <input type="file" id="uploadImagesVal"  name="image[]"  multiple />
                             <p id="errorMessage" class="help-block">Select Images here.</p>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
+                        <button type="submit" name="submit" class="btn btn-info" id="uploadImagesSubmitBtn">Save</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -487,52 +488,80 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
             });
         });
 
-        $('#uploadImagesVal').change(function() {
-            var error_images = '';
-            var form_data = new FormData();
-            // get the number of filea
-            var files = $('#uploadImagesVal')[0].files;
+        /// upload images
+        $('#uploadImagesForm').submit(function(event) {
+            event.preventDefault();
+            var image_name = $('#uploadImagesVal').val();
             var vehicle_id = $('#uploadImagesVehicleId').val();
-            if (files.length > 5) {
-                error_images += 'You can not select more than 5 files';
+            if (image_name == '') {
+                toastr.error('Please select an image');
+                return false;
             } else {
-                // using for loop through the files selected 
-                // in this loop we are selecting file data one by one
-                for (var i = 0; i < files.length; i++) {
-                    // we are getting name of each file
-                    var name = document.getElementById('uploadImagesVal').files[i].name;
-                    var ext = name.split('.').pop().toLowerCase();
-                    if (jQuery.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-                        error_images += 'Invalid ' + i + ' File';
-                    }
-                    // append file names to form data
-                    form_data.append('file[]', document.getElementById('uploadImagesVal').files[i]);
-                    form_data.append('vehicle_id', vehicle_id);
-                }
-            }
-
-            if (error_images == '') {
                 $.ajax({
                     url: "<?php echo base_url(); ?>api/vehicles/upload_images.php",
                     type: "POST",
-                    data: form_data,
+                    data: new FormData(this),
                     contentType: false,
-                    processData: false,
                     cache: false,
+                    processData: false,
                     beforeSend: function() {
-                        $('#errorMessage').html('<br /><label class="text-primary">Uploading...</label>');
+                        $('#uploadImagesSubmitBtn').html('Uploading..');
                     },
                     success: function(data) {
-                        console.log(data);
+                        $('#uploadImagesVal').val('');
+                        find_vehicle_images();
+                        $('#uploadImagesModal').modal('hide');
                     }
                 });
-            } else {
-                $('#uploadImagesVal').val('');
-                toastr.error(error_images);
-                return false;
             }
-
         });
+
+        // $('#uploadImagesVal').change(function() {
+        //     var error_images = '';
+        //     var form_data = new FormData();
+        //     // get the number of filea
+        //     var files = $('#uploadImagesVal')[0].files;
+        //     var vehicle_id = $('#uploadImagesVehicleId').val();
+        //     if (files.length > 5) {
+        //         error_images += 'You can not select more than 5 files';
+        //     } else {
+        //         // using for loop through the files selected 
+        //         // in this loop we are selecting file data one by one
+        //         for (var i = 0; i < files.length; i++) {
+        //             // we are getting name of each file
+        //             var name = document.getElementById('uploadImagesVal').files[i].name;
+        //             var ext = name.split('.').pop().toLowerCase();
+        //             if (jQuery.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+        //                 error_images += 'Invalid ' + i + ' File';
+        //             }
+        //             // append file names to form data
+        //             form_data.append('file[]', document.getElementById('uploadImagesVal').files[i]);
+        //             form_data.append('vehicle_id', vehicle_id);
+        //         }
+        //     }
+
+        //     if (error_images == '') {
+        //         $.ajax({
+        //             url: "<?php echo base_url(); ?>api/vehicles/upload_images.php",
+        //             type: "POST",
+        //             data: form_data,
+        //             contentType: false,
+        //             processData: false,
+        //             cache: false,
+        //             beforeSend: function() {
+        //                 $('#errorMessage').html('<br /><label class="text-primary">Uploading...</label>');
+        //             },
+        //             success: function(data) {
+        //                 console.log(data);
+        //             }
+        //         });
+        //     } else {
+        //         $('#uploadImagesVal').val('');
+        //         toastr.error(error_images);
+        //         return false;
+        //     }
+
+        // });
 
         $('#transferVehicleMembersContainer').fadeOut(900);
         $('#transferVehicleAdminContainer').fadeOut(900);

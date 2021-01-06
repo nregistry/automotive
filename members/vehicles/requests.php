@@ -85,11 +85,6 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                         </div>
 
                         <div class="form-group">
-                            <label for="newVehicleRequestsProductionDate">Production Date</label>
-                            <input type="text" id="newVehicleRequestsProductionDate" class="form-control datepicker" name="production_date" placeholder="Enter Vehicle Production Date" />
-                        </div>
-
-                        <div class="form-group">
                             <label for="newVehicleRequestsModel">Vehicle Model</label>
                             <input type="text" id="newVehicleRequestsModel" class="form-control" name="model" placeholder="Enter Vehicle Model" />
                         </div>
@@ -106,7 +101,53 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
 
                         <div class="form-group">
                             <label for="newVehicleRequestsColors">Color</label>
-                            <input type="text" id="newVehicleRequestsColors" class="form-control" name="colors" placeholder="Enter Vehicle Color" />
+                            <select name="colors" id="newVehicleRequestsColors" class="form-control">
+                                <option>Select the color</option>
+                                <option>PAW/QAW Slate</option>
+                                <option>PB3/QB3 Intense Blue</option>
+                                <option>PB5/QB5 Electic Blue</option>
+                                <option>PB7/QB7 Patriot Blue</option>
+                                <option>PB8/QB8 Midnight Blue</option>
+                                <option>PBJ/QBJ Atlantic Blue</option>
+                                <option>PBQ/QBQ Steel Blue</option>
+                                <option>PBT/QBT Patriot Blue 2</option>
+                                <option>PC4/QC4 Lapis Blue</option>
+                                <option>PC5/QC5 Iris</option>
+                                <option>PCH/QCH Brillant Blue</option>
+                                <option>PCN/QCN Amethyst</option>
+                                <option>PDM/QDM Mineral Grey</option>
+                                <option>PDR/QDR Viper Graphite</option>
+                                <option>PE5/QE5 Salsa Red</option>
+                                <option>PEI/QEI Inferno Red</option>
+                                <option>PF2/QF2 Nitro Yellow Green</option>
+                                <option>PG4/QG4 Hunter Green</option>
+                                <option>PG8/QG8 Forest green</option>
+                                <option>PGR/QGR Shale Green</option>
+                                <option>PGS/QGS Emerald Green</option>
+                                <option>PGT/QGT Alpine Green</option>
+                                <option>PGW/QGW Timberline Green</option>
+                                <option>PH1/QH1 Magenta</option>
+                                <option>PJP/QJP Medium Fern</option>
+                                <option>PJT/QJT Sandstone</option>
+                                <option>PKJ/QKJ Almond</option>
+                                <option>PLB/QLB Cinnamon Glaze</option>
+                                <option>PMT/QMT Cranberry</option>
+                                <option>PPE/RFE Spruce</option>
+                                <option>PQK/QQK Aqua Pearl</option>
+                                <option>PPM/PQM Bright Jade</option>
+                                <option>PR4/QR4 Flame Red</option>
+                                <option>PRE/QRE Strawberry</option>
+                                <option>PRH/QRH Blaze Red</option>
+                                <option>PRV/QRV Dark Garnet Red</option>
+                                <option>PS2/QS2 Bright Silver</option>
+                                <option>PS4/QS4 Platinum</option>
+                                <option>PVK/QVK Orange Blast</option>
+                                <option>PTE/QTE Champangne</option>
+                                <option>PW1/QW1 Stone White</option>
+                                <option>PW7/QW7 Bright White</option>
+                                <option>PX8/QX8 Black</option>
+                                <option>PYH/QYH Solar Yellow</option>
+                            </select>
                         </div>
 
                         <div class="form-group">

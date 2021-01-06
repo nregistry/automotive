@@ -25,7 +25,7 @@ class Vehicles_Migration
         $query .= "member_id INT(11) NOT NULL, ";
         $query .= "vin_number VARCHAR(100) NOT NULL, ";
         $query .= "profile VARCHAR(200) NOT NULL, ";
-        $query .= "production_date DATE NOT NULL, ";
+        $query .= "production_date VARCHAR(200) NOT NULL, ";
         $query .= "year VARCHAR(200) NOT NULL, ";
         $query .= "model VARCHAR(200) NOT NULL, ";
         $query .= "engine VARCHAR(200) NOT NULL, ";
