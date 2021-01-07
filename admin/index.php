@@ -37,7 +37,9 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?php echo base_url(); ?>admin/members/requests.php" class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
                 </div>
             </div>
             <!-- ./col -->
@@ -52,7 +54,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?php echo base_url(); ?>admin/members/index.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -67,7 +69,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?php echo base_url(); ?>admin/vehicles/request.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -82,7 +84,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?php echo base_url(); ?>admin/vehicles/index.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -97,7 +99,6 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
                         <h3 class="card-title">Active Members</h3>
                     </div>
                     <div id="loadMembers" class="card-body table-responsive p-0">
-                        
                     </div>
                 </div>
                 <!-- /.card -->
@@ -105,6 +106,58 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
         </div>
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
+
+    <div class="modal fade" id="viewMemberModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">View Member</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="memberProfileVal" class="col-md-3 col-sm-12">
+                        </div>
+                        <div class="col-md-9 col-sm-12 table-responsive p-0">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Full Names</th>
+                                        <td id="memberFullNames"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone Number</th>
+                                        <td id="memberPhone"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email Address</th>
+                                        <td id="memberEmail"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date of birth</th>
+                                        <td id="memberDOB"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Gender</th>
+                                        <td id="memberGender"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Location</th>
+                                        <td id="memberLocation"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 </section>
 <!-- /.content -->
 
@@ -123,7 +176,9 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
             $.ajax({
                 url: "<?php echo base_url(); ?>api/members/fetch_dashboard.php",
                 type: "POST",
-                data: {status:status},
+                data: {
+                    status: status
+                },
                 dataType: "json",
                 success: function(data) {
                     $('#numMembers').html(data.num_members);
@@ -137,7 +192,9 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
             $.ajax({
                 url: "<?php echo base_url(); ?>api/members/fetch_dashboard.php",
                 type: "POST",
-                data: {status:status},
+                data: {
+                    status: status
+                },
                 dataType: "json",
                 success: function(data) {
                     $('#numMebersRequest').html(data.num_members);
@@ -145,13 +202,40 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
             });
         }
 
-        
+        // view member 
+        $(document).on('click', '.view', function() {
+            var member_id = $(this).attr('id');
+            var action = 'FETCH_MEMBER';
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/members/members.php",
+                type: "POST",
+                data: {
+                    action: action,
+                    member_id: member_id
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('#memberProfileVal').html('<img class="profile-user-img img-fluid img-circle" src="<?php echo public_url(); ?>storage/users/' + data.image + '" alt="User profile picture">');
+                    $('#memberFullNames').html(data.fullnames);
+                    $('#memberPhone').html(data.phone);
+                    $('#memberEmail').html(data.email);
+                    $('#memberDOB').html(data.dob);
+                    $('#memberGender').html(data.gender);
+                    $('#memberLocation').html(data.location);
+                    $('#viewMemberModal').modal('show');
+                }
+            });
+        });
+
+
         function find_active_vehicles() {
             var status = 'ACTIVE';
             $.ajax({
                 url: "<?php echo base_url(); ?>api/vehicles/fetch_for_admin_dashboard.php",
                 type: "POST",
-                data: {status:status},
+                data: {
+                    status: status
+                },
                 dataType: "json",
                 success: function(data) {
                     $('#numActiveVehicles').html(data.num_vehicles);
@@ -164,7 +248,9 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
             $.ajax({
                 url: "<?php echo base_url(); ?>api/vehicles/fetch_for_admin_dashboard.php",
                 type: "POST",
-                data: {status:status},
+                data: {
+                    status: status
+                },
                 dataType: "json",
                 success: function(data) {
                     $('#numVehicleRequests').html(data.num_vehicles);
@@ -173,5 +259,4 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "admin" . DS . "header.php"); 
         }
 
     });
-
 </script>

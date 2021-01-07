@@ -129,6 +129,18 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                                 <p class="text-muted">
                                     <?php echo htmlentities($current_vehicle['trans']); ?>
                                 </p>
+
+                                <hr>
+
+                                <strong><i class="fa  fa-contao mr-1"></i> Color</strong>
+                                <p class="text-muted">
+                                    <?php echo htmlentities($current_vehicle['colors']); ?>
+                                </p>
+                                <hr>
+
+                                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+                                <p class="text-muted"><?php echo htmlentities($current_vehicle['notes']); ?></p>
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="vehicle_images">
@@ -245,7 +257,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                         </div>
                         <div class="form-group">
                             <label for="uploadImagesVal">Images</label>
-                            <input type="file" id="uploadImagesVal"  name="image[]"  multiple />
+                            <input type="file" id="uploadImagesVal" name="image[]" multiple />
                             <p id="errorMessage" class="help-block">Select Images here.</p>
                         </div>
                     </div>

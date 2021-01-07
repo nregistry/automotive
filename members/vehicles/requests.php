@@ -86,17 +86,65 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
 
                         <div class="form-group">
                             <label for="newVehicleRequestsModel">Vehicle Model</label>
-                            <input type="text" id="newVehicleRequestsModel" class="form-control" name="model" placeholder="Enter Vehicle Model" />
+                            <select name="model" id="newVehicleRequestsModel" class="form-control">
+                                <option selected disabled>Choose Body style</option>
+                                <option>SCCA ACR Sedan</option>
+                                <option>SCCA ACR Coupe</option>
+                                <option>Celebrity Challenge Car Sedan</option>
+                                <option>Celebrity Challenge Car Coupe</option>
+                                <option>ACR Sedan</option>
+                                <option>ACR Coupe</option>
+                                <option>Plym. Style Sedan</option>
+                                <option>Plym. Style Coupe</option>
+                                <option>R/T Sedan</option>
+                                <option>R/T Coupe</option>
+                                <option>Expresso Sedan</option>
+                                <option>Expresso Coupe</option>
+                                <option>Base Sedan</option>
+                                <option>Base Coupe</option>
+                                <option>Highline Sedan</option>
+                                <option>Highline Coupe</option>
+                                <option>Sport Sedan</option>
+                                <option>Sport Coupe</option>
+                                <option>SE </option>
+                                <option>ES </option>
+                                <option>ES+ </option>
+                                <option>LE </option>
+                                <option>LX </option>
+                                <option>SX 2.0</option>
+                                <option>Motorsport Edition ES </option>
+                                <option>Motorsport Edition R/T </option>
+                                <option>Special Edition </option>
+                                <option>SXT </option>
+                                <option>SRT Design </option>
+                                <option>SRT4 </option>
+                                <option>SRT4-ACR </option>
+                                <option>SRT4 CE/Commemorative Edition </option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="newVehicleRequestsEngine">Engine</label>
-                            <input type="text" id="newVehicleRequestsEngine" class="form-control" name="engine" placeholder="Enter Vehicle Engine" />
+                            <select name="engine" id="newVehicleRequestsEngine" class="form-control">
+                                <option selected disabled>Select the engine</option>
+                                <option>1.8 SOHC</option>
+                                <option>ECB 2.0 SOHC</option>
+                                <option>ECH 2.0 SOHC Magnum </option>
+                                <option>ECC 2.0 DOHC</option>
+                                <option>EDV 2.4 DOHC Turbo</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="newVehicleRequestsTrans">Trans</label>
-                            <input type="text" id="newVehicleRequestsTrans" class="form-control" name="trans" placeholder="Enter Vehicle Trans" />
+                            <select name="trans" id="newVehicleRequestsTrans" class="form-control">
+                                <option selected disabled>Select the transmission</option>
+                                <option>DGC - 3 speed Auto </option>
+                                <option>DGL - 4 speed Auto </option>
+                                <option>DD5 - 5 speed </option>
+                                <option>DD4 - 5 speed Perf </option>
+                                <option>DDR - 5 speed SRT4 </option>
+                            </select>
                         </div>
 
                         <div class="form-group">

@@ -143,8 +143,7 @@ $status = 'ACTIVE';
                             <?php foreach ($active_members as $member) { ?>
                                 <div>
                                     <h2 class="section-title mb-3"><?php echo htmlentities($member['fullnames']); ?></h2>
-                                    <p class="lead"><?php echo htmlentities($member['email']); ?></p>
-                                    <p><?php echo htmlentities($member['phone']); ?></p>
+                                    <p class="lead">&nbsp;</p>
                                     <p><a href="<?php echo base_url(); ?>members/register.php" class="btn btn-primary mr-2 mb-2">Join Us today</a></p>
                                 </div>
                             <?php } ?>

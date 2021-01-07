@@ -36,7 +36,17 @@ if (!$current_member) {
     die();
 }
 
+// make sure admin is not transfering to same member
+$vehicle_member = htmlentities($current_vehicle['id']);
+
+if($current_member['id'] == $vehicle_member){
+    $data['message'] = 'sameMember';
+    echo json_encode($data);
+    die();
+}
+
 $vehicle->id = $current_vehicle['id'];
+
 $vehicle->member_id = $current_member['id'];
 $vehicle->vin_number = $current_vehicle['vin_number'];
 $vehicle->profile = $current_vehicle['profile'];
