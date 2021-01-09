@@ -199,6 +199,16 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                         </div>
 
                         <div class="form-group">
+                            <label for="newVehicleRequestsProductionDate">Production Date</label>
+                            <input type="text" id="newVehicleRequestsProductionDate" class="form-control" name="production_date" placeholder="MM/DD/YYYY" />
+                        </div>
+
+                        <div id="newVehicleRequestsProductionYearContainer" class="form-group">
+                            <label for="newVehicleRequestsProductionYear">Production Year</label>
+                            <input type="text" id="newVehicleRequestsProductionYear" class="form-control" name="year" placeholder="Production Year" />
+                        </div>
+
+                        <div class="form-group">
                             <label for="newVehicleRequestsNotes">Notes</label>
                             <textarea name="notes" id="newVehicleRequestsNotes" class="form-control" placeholder="Enter Vehicle Notes"></textarea>
                         </div>
@@ -256,6 +266,70 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
                 }
             });
         });
+
+        $('#newVehicleRequestsProductionYearContainer').fadeOut(800);
+
+        $('#newVehicleRequestsVinNumber').keyup(function() {
+            var VIN = $(this).val();
+            var v_lngth = VIN.length;
+            if (v_lngth == 17) {
+                var year_value = VIN.substr(9, 1);
+                var year = ModelYear(year_value);
+                $('#newVehicleRequestsProductionYear').val(year);
+                $('#newVehicleRequestsProductionYearContainer').fadeIn(900);
+            }
+        });
+
+        // lesson in wrapper functions
+        function stripWhitespace(s) {
+            var whitespace = " \t\n\r";
+            return stripCharsInBag(s, whitespace);
+        }
+
+        function ModelYear(digitTen) {
+            // usually returned to document.temps.MY.value
+            switch (digitTen) {
+                case "S":
+                    return "1995";
+                    break;
+                case "T":
+                    return "1996";
+                    break;
+                case "V":
+                    return "1997";
+                    break;
+                case "W":
+                    return "1998";
+                    break;
+                case "X":
+                    return "1999";
+                    break;
+                case "Y":
+                    return "2000";
+                    break;
+                case "1":
+                    return "2001";
+                    break;
+                case "2":
+                    return "2002";
+                    break;
+                case "3":
+                    return "2003";
+                    break;
+                case "4":
+                    return "2004";
+                    break;
+                case "5":
+                    return "2005";
+                    break;
+                default:
+                    return "What the hell was that?";
+                    break;
+            }
+        }
+
+
+
 
         $('#newVehicleRequestForm').submit(function(event) {
             event.preventDefault();

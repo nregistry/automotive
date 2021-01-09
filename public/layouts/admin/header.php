@@ -76,7 +76,7 @@ to get the desired effect
                     <a href="<?php echo base_url(); ?>index.php" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="<?php echo base_url(); ?>admin/index.php?organization=<?php echo urlencode($current_org['id']); ?>" class="nav-link">Dashboard</a>
+                    <a href="<?php echo base_url(); ?>admin/index.php" class="nav-link">Dashboard</a>
                 </li>
             </ul>
         </nav>

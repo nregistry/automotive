@@ -24,33 +24,7 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "users" . DS . "login-header.ph
             </div>
         </div>
     </div>
-
-    <div class="input-group mb-3">
-        <input type="text" name="phone" class="form-control" placeholder="Phone Number">
-        <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fa fa-mobile-phone"></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="input-group mb-3">
-        <select name="gender" id="gender" class="form-control">
-            <option selected disabled>Choose Gender</option>
-            <option value="MALE">MALE</option>
-            <option value="FEMALE">FEMALE</option>
-        </select>
-    </div>
-
-    <div class="input-group mb-3">
-        <input type="text" name="username" class="form-control" placeholder="Username">
-        <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fa fa-user"></span>
-            </div>
-        </div>
-    </div>
-
+    
     <div class="input-group mb-3">
         <input type="password" class="form-control" name="password" placeholder="Password">
         <div class="input-group-append">
@@ -118,6 +92,19 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "users" . DS . "login-header.ph
                         $('#hostsRegistrationSubmitBtn').html("Error");
                         return false;
                     }
+
+                    if (data.message == 'errorPassword') {
+                        toastr.error('Password entered do not match. Please check on this and try again...');
+                        $('#hostsRegistrationSubmitBtn').html("Error Password");
+                        return false;
+                    }
+
+                    if (data.message == 'errorRole') {
+                        toastr.error('Member roles have not been set. Please contact the admin ...');
+                        $('#hostsRegistrationSubmitBtn').html("Error Roles");
+                        return false;
+                    }
+                    
                 }
             });
         });

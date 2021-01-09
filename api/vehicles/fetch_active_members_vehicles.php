@@ -11,13 +11,13 @@ require_once('../../init/initialization.php');
 // Database Connect
 $connection = $database->connect();
 
-$members = new Members();
-
 $status = $_POST['status'];
 
-$all_members = $members->find_all_by_status($status);
+$vehicles = new Vehicles();
 
-$num_members = count($all_members);
+$active_vehicles = $vehicles->find_all_by_status($status);
+
+$num_vehicles = count($active_vehicles);
 
 // start on the query
 $query = '';
@@ -25,17 +25,24 @@ $query = '';
 // output array
 $output = array();
 
-$query .= "SELECT * FROM members ";
-
-$query .= "WHERE status = '{$status}' ";
+$query .= "SELECT ";
+$query .= "fullnames, profile, vin_number, ";
+$query .= "production_date, year, model, ";
+$query .= "engine, trans, colors ";
+$query .= "FROM vehicles ";
+$query .= "INNER JOIN members ON vehicles.member_id = members.id ";
+$query .= "WHERE vehicles.status = '{$status}' ";
 
 // Bring  in search query
 if (isset($_POST["search"]["value"])) {
     $query .= "AND (";
-    $query .= "fullnames LIKE '%{$_POST["search"]["value"]}%' ";
-    $query .= "OR phone LIKE '%{$_POST["search"]["value"]}%' ";
-    $query .= "OR email LIKE '%{$_POST["search"]["value"]}%' ";
-    $query .= "OR location LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "members.fullnames LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR vehicles.vin_number LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR vehicles.production_date LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR vehicles.year LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR vehicles.model LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR vehicles.engine LIKE '%{$_POST["search"]["value"]}%' ";
+    $query .= "OR vehicles.trans LIKE '%{$_POST["search"]["value"]}%' ";
     $query .= ") ";
 }
 
@@ -43,7 +50,7 @@ if (isset($_POST["search"]["value"])) {
 if (isset($_POST["order"])) {
     $query .= "ORDER BY " . $_POST['order']['0']['column'] . " " . $_POST['order']['0']['dir'] . " ";
 } else {
-    $query .= "ORDER BY id DESC ";
+    $query .= "ORDER BY vehicles.id DESC ";
 }
 
 // Pagging
@@ -60,11 +67,15 @@ $data = array();
 
 while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
     $sub_array = array();
-    $sub_array[] = '<img src="' . public_url() . 'storage/users/' . $row["image"] . '" alt="Product 1" class="img-circle img-size-32 mr-2">';
     $sub_array[] = $row["fullnames"];
-    // $sub_array[] = $row["phone"];
-    // $sub_array[] = $row["email"];
-    // $sub_array[] = '<button id="' . htmlentities($row["id"]) . '" class="btn btn-success view"> <i class="fa fa-search"></i></button>';
+    $sub_array[] = '<img src="' . public_url() . 'storage/vehicles/' . htmlentities($row["profile"]) . '" alt="Product 1" class="img-circle img-size-32 mr-2">';
+    $sub_array[] = $row["vin_number"];
+    $sub_array[] = $row["production_date"];
+    $sub_array[] = $row["year"];
+    $sub_array[] = $row["model"];
+    $sub_array[] = $row["engine"];
+    $sub_array[] = $row["trans"];
+    $sub_array[] = $row["colors"];
     $data[] = $sub_array;
 }
 
@@ -72,7 +83,7 @@ while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
 $output = array(
     "draw"                =>    intval($_POST["draw"]),
     "recordsTotal"        =>     $filtered_rows,
-    "recordsFiltered"    =>    $num_members,
+    "recordsFiltered"    =>    $num_vehicles,
     "data"                =>    $data
 );
 

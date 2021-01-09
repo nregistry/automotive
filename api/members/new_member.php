@@ -39,7 +39,7 @@ if(!$current_role){
 $members->role_id = $current_role['id'];
 $members->fullnames = $_POST['fullnames'];
 $members->image = 'noimage.png';
-$members->phone = $_POST['phone'];
+$members->phone = 'NULL';
 $members->email = $_POST['email'];
 $check_email = $members->find_by_email($members->email);
 if($check_email){
@@ -48,10 +48,10 @@ if($check_email){
     die();
 }
 $members->dob = $d->format("Y-m-d");
-$members->gender = $_POST['gender'];
+$members->gender = "NULL";
 $members->location = $_POST['location'];
 $members->status = 'REQUEST';
-$members->username = $_POST['username'];
+$members->username = $members->fullnames;
 $members->password = $password;
 $members->confirm_password = $confirm;
 $members->forgot_code = 'NULL';

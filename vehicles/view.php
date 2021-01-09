@@ -1,6 +1,14 @@
-<?php require_once('init/initialization.php');
-$members = new Members();
+<?php require_once('../init/initialization.php');
+$url = base_url();
+if (!$_GET['vehicle']) {
+    redirect_to($url);
+}
+$vaehicle_id = htmlentities($_GET['vehicle']);
 $vehicles = new Vehicles();
+$current_vehicle = $vehicles->find_by_id($vaehicle_id);
+if (!$current_vehicle) {
+    redirect_to($url);
+}
 $status = 'ACTIVE';
 ?>
 <!doctype html>
@@ -69,8 +77,8 @@ $status = 'ACTIVE';
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-8 mt-lg-5 text-center">
-                        <h1 class="text-uppercase" data-aos="fade-up">Welcome</h1>
-                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Automotive members manage system.</p>
+                        <h1 class="text-uppercase" data-aos="fade-up"><?php echo htmlentities($current_vehicle['vin_number']); ?></h1>
+                        <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Profile.</p>
                         <div data-aos="fade-up" data-aos-delay="100">
                             <a href="<?php echo base_url(); ?>members/login.php" class="btn smoothscroll btn-primary mr-2 mb-2">Members Sign In</a>
                             <a href="<?php echo base_url(); ?>members/register.php" class="btn smoothscroll btn-success mr-2 mb-2">Members Sign Up</a>
@@ -89,27 +97,57 @@ $status = 'ACTIVE';
             <div class="container">
                 <div class="row mb-5">
                     <div class="col-12 text-center" data-aos="fade">
-                        <h2 class="section-title mb-3">About Us</h2>
+                        <h2 class="section-title mb-3">About <?php echo htmlentities($current_vehicle['vin_number']) ?></h2>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
                         <figure class="circle-bg">
-                            <img src="<?php echo public_url(); ?>storage/images/hero_1.jpg" alt="Image" class="img-fluid">
+                            <img src="<?php echo public_url(); ?>storage/vehicles/<?php echo htmlentities($current_vehicle['profile']); ?>" alt="Image" class="img-fluid">
                         </figure>
                     </div>
                     <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
                         <div class="mb-4">
-                            <h3 class="h3 mb-4 text-black">For the next great business</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo tempora cumque eligendi in nostrum labore omnis quaerat.</p>
+                            <h3 class="h3 mb-4 text-black">Vehicle Details</h3>
+                            <p>properties of the current selected vehicle include..</p>
                         </div>
-                        <div class="mb-4">
-                            <ul class="list-unstyled ul-check success">
-                                <li>Officia quaerat eaque neque</li>
-                                <li>Possimus aut consequuntur incidunt</li>
-                                <li>Lorem ipsum dolor sit amet</li>
-                                <li>Consectetur adipisicing elit</li>
-                            </ul>
+                        <div class="mb-4 table-responsive">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Vin Number</th>
+                                        <td><?php echo htmlentities($current_vehicle['vin_number']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Production Date</th>
+                                        <td><?php echo htmlentities($current_vehicle['production_date']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Production Year</th>
+                                        <td><?php echo htmlentities($current_vehicle['year']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Model</th>
+                                        <td><?php echo htmlentities($current_vehicle['model']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Engine</th>
+                                        <td><?php echo htmlentities($current_vehicle['engine']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Transmission</th>
+                                        <td><?php echo htmlentities($current_vehicle['trans']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Color</th>
+                                        <td><?php echo htmlentities($current_vehicle['colors']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Notes</th>
+                                        <td><?php echo htmlentities($current_vehicle['notes']); ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -132,7 +170,7 @@ $status = 'ACTIVE';
                     <?php $active_vehicles = $vehicles->find_all_by_status($status); ?>
                     <?php foreach ($active_vehicles as $car) { ?>
                         <div class="item web col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                            <a href="<?php echo base_url(); ?>vehicles/view.php?vehicle=<?php echo urlencode($car['id']); ?>" class="item-wrap">
+                            <a href="<?php echo base_url(); ?>vehicles/view.php" class="item-wrap">
                                 <span class="icon-search2"></span>
                                 <img class="img-fluid" src="<?php echo public_url(); ?>storage/vehicles/<?php echo htmlentities($car['profile']) ?>">
                             </a>
