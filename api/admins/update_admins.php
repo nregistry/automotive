@@ -30,6 +30,7 @@ $admins->admin_email = $current_admin['admin_email'];
 $admins->admin_phone = $_POST['phone'];
 $admins->admin_dob = $_POST['dob'];
 $admins->admin_gender = $_POST['gender'];
+$admins->admin_status = $current_admin['admin_status'];
 $admins->admin_location = $_POST['location'];
 $admins->admin_username = $current_admin['admin_username'];
 $admins->forgot_code = $current_admin['forgot_code'];

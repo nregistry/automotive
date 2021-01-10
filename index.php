@@ -129,7 +129,7 @@ $status = 'ACTIVE';
                     </div>
                 </div>
                 <div id="posts" class="row no-gutter">
-                    <?php $active_vehicles = $vehicles->find_all_by_status($status); ?>
+                    <?php $active_vehicles = $vehicles->find_all_by_status_with_limit($status, 8); ?>
                     <?php foreach ($active_vehicles as $car) { ?>
                         <div class="item web col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
                             <a href="<?php echo base_url(); ?>vehicles/view.php?vehicle=<?php echo urlencode($car['id']); ?>" class="item-wrap">

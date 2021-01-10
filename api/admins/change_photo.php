@@ -33,6 +33,7 @@ if(isset($_FILES['photo']['name'])){
     $admin->admin_email = $current_admin['admin_email'];
     $admin->admin_dob = $current_admin['admin_dob'];
     $admin->admin_gender = $current_admin['admin_gender'];
+    $admin->admin_status = $current_admin['admin_status'];
     $admin->admin_location = $current_admin['admin_location'];
     $admin->admin_username = $current_admin['admin_username'];
     $admin->forgot_code = $current_admin['forgot_code'];

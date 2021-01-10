@@ -16,7 +16,7 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-header.ph
     </div>
     <div class="row">
         <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Request new password</button>
+            <button id="forgotSubmitBtn" type="submit" class="btn btn-primary btn-block">Request new password</button>
         </div>
         <!-- /.col -->
     </div>
@@ -30,3 +30,33 @@ require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-header.ph
 </p>
 
 <?php require_once(PUBLIC_PATH . DS . "layouts" . DS . "admin" . DS . "login-footer.php"); ?>
+
+<script>
+    $(document).ready(function() {
+        $('#forgotForm').submit(function(event) {
+            event.preventDefault();
+            var form_data = $(this).serialize();
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/admins/forgot.php",
+                type: "POST",
+                data: form_data,
+                dataType: "json",
+                beforeSend: function() {
+                    $('#forgotSubmitBtn').html("Loading...");
+                },
+                success: function(data) {
+                    if (data.message == "success") {
+                        $('#forgotSubmitBtn').html("Success");
+                        toastr.success('Your request to change password has been received. Check your email to continue.');
+                    }
+
+                    if (data.message == "errorAdmin") {
+                        toastr.error('Account entered doesnot exists. Please check on the email and try again..');
+                        $('#forgotSubmitBtn').html("Error Email");
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+</script>
