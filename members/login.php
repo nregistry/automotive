@@ -1,5 +1,5 @@
 <?php require_once('../init/initialization.php');
-$title = 'Admin || Register';
+$title = 'Member';
 require_once(PUBLIC_PATH . DS . "layouts" . DS . "users" . DS . "login-header.php");
 ?>
 <p class="login-box-msg">Sign in to start your session</p>

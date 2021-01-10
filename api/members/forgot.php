@@ -17,14 +17,14 @@ $d = new DateTime();
 
 $data = array();
 
-$admins = new Admins();
+$members = new Members();
 
-$admin_email = htmlentities($_POST['email']);
+$email = htmlentities($_POST['email']);
 
-$current_admin = $admins->find_by_email($admin_email);
+$current_member = $members->find_by_email($email);
 
-if (!$current_admin) {
-    $data['message'] = 'errorAdmin';
+if (!$current_member) {
+    $data['message'] = 'errorMember';
     echo json_encode($data);
     die();
 }
@@ -40,28 +40,29 @@ $message = "";
 $link = "";
 
 // update code 
-$admins->id = $current_admin['id'];
-$admins->admin_fullnames = $current_admin['admin_fullnames'];
-$admins->admin_image = $current_admin['admin_image'];
-$admins->admin_email = $current_admin['admin_email'];
-$admins->admin_phone = $current_admin['admin_phone'];
-$admins->admin_dob = $current_admin['admin_dob'];
-$admins->admin_gender = $current_admin['admin_gender'];
-$admins->admin_education = $current_admin['admin_education'];
-$admins->admin_address = $current_admin['admin_address'];
-$admins->admin_location = $current_admin['admin_location'];
-$admins->admin_username = $current_admin['admin_username'];
-$admins->forgot_code = $code;
-$admins->created_date = $current_admin['created_date'];
-$admins->edited_date = $d->format("Y-m-d H:i:s");
-if ($admins->update()) {
-    $to_mail .= $admins->admin_email;
-    $username .= $admins->admin_username;
+$members->id = $current_member['id'];
+$members->role_id = $current_member['role_id'];
+$members->fullnames = $current_member['fullnames'];
+$members->image = $current_member['image'];
+$members->phone = $current_member['phone'];
+$members->email = $current_member['email'];
+$members->dob = $current_member['dob'];
+$members->gender = $current_member['gender'];
+$members->location = $current_member['location'];
+$members->status = $current_member['status'];
+$members->username = $current_member['username'];
+$members->forgot_code = $code;
+$members->created_date = $current_member['created_date'];
+$members->edited_date = $d->format("Y-m-d H:i:s");
+
+if ($members->update()) {
+    $to_mail .= $members->email;
+    $username .= $members->username;
     $message .= "<p>Your request to change password has been received. </p>";
     $message .= "<p>Please click the following link to continue.</p>";
     $message .= "<hr/>";
     // define the mail values
-    $link .= "<p><a href=" . base_url() . "api/admins/confirm_url.php?code=" . urlencode($admins->forgot_code) . ">" . base_url() . "api/admins/confirm_url.php?code=" .  urlencode($admins->forgot_code) . "</a></p>";
+    $link .= "<p><a href=" . base_url() . "api/members/confirm_url.php?code=" . urlencode($members->forgot_code) . ">" . base_url() . "api/members/confirm_url.php?code=" .  urlencode($members->forgot_code) . "</a></p>";
     $message .= $link;
     $data['message'] = "codeUpdated";
 }
@@ -75,16 +76,14 @@ $sendMail = new SendMail($mail);
 if ($data['message'] == "codeUpdated") {
     // define the mail values 
     $sendMail->from = 'stevekama@mail.com';
-    $sendMail->from_username = 'Schedulize';
+    $sendMail->from_username = 'Automotive';
     $sendMail->to = $to_mail;
     $sendMail->to_username = $username;
-    $sendMail->subject = 'Welcome To Schedulize';
+    $sendMail->subject = 'Welcome To Automotive';
     $sendMail->message = $message;
     // time email was send
     $sendMail->sendtime = $d->format('Y-m-d H:i:s');
-
-    $admin_logs = new Admin_Logs();
-
+    
     if ($sendMail->send_mail()) {
         // save email 
         if ($sendMail->save()) {

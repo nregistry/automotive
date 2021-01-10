@@ -20,6 +20,9 @@ require_once(CONFIG_PATH.DS.'sessions.php');
 // load all system functions
 require_once(CONFIG_PATH.DS.'functions.php');
 
+// load autoload
+require_once(VENDOR_PATH.DS.'autoload.php');
+
 // app auth api
 // require_once(CONFIG_PATH.DS.'auth.php');
 
