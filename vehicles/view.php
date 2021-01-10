@@ -170,7 +170,7 @@ $status = 'ACTIVE';
                     <?php $active_vehicles = $vehicles->find_all_by_status($status); ?>
                     <?php foreach ($active_vehicles as $car) { ?>
                         <div class="item web col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
-                            <a href="<?php echo base_url(); ?>vehicles/view.php" class="item-wrap">
+                            <a href="<?php echo base_url(); ?>vehicles/view.php?vehicle=<?php echo htmlentities($car['id']); ?>" class="item-wrap">
                                 <span class="icon-search2"></span>
                                 <img class="img-fluid" src="<?php echo public_url(); ?>storage/vehicles/<?php echo htmlentities($car['profile']) ?>">
                             </a>

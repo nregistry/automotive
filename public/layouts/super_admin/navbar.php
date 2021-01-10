@@ -47,6 +47,24 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-user-md"></i>
                         <p>
+                            Mails
+                            <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>super_admin/mail/table.php" class="nav-link">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Mails Table</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-user-md"></i>
+                        <p>
                             Admins
                             <i class="fa fa-angle-left right"></i>
                         </p>

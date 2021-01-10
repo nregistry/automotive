@@ -23,6 +23,9 @@ require_once(CONFIG_PATH.DS.'functions.php');
 // app auth api
 // require_once(CONFIG_PATH.DS.'auth.php');
 
+// load roles
+require_once(MODELS_PATH.DS.'mail.php');
+
 // load admins
 require_once(MODELS_PATH.DS.'admins.php');
 
