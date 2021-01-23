@@ -1,5 +1,5 @@
 <?php require_once('../../init/initialization.php');
-$title = "Admin || Dashboard";
+$title = "Member || Dashboard";
 $page = 'dashboad';
 require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); ?>
 
@@ -30,6 +30,13 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Approved Vehicles Table</h3>
+                    <?php if ($role_name == 'MEMBER') { ?>
+                        <div class="card-tools">
+                            <a href="requests.php" onClick="window.location='requests.php'" id="newVehicleRequestBtn" class="btn btn-tool btn-sm btn-success">
+                                <i class="fa fa-plus"></i> MAKE REQUEST
+                            </a>
+                        </div>
+                    <?php } ?>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive">
@@ -58,6 +65,7 @@ require_once(PUBLIC_PATH  . DS . "layouts" . DS . "users" . DS . "header.php"); 
         <!-- /.col -->
     </div>
     <!-- /.row -->
+  
 </section>
 <!-- /.content -->
 
