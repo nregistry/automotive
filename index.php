@@ -56,6 +56,10 @@ $status = 'ACTIVE';
                                 <li><a href="#about-section" class="nav-link">About Us</a></li>
                                 <li><a href="#portfolio-section" class="nav-link">Vehicles</a></li>
                                 <li><a href="#contact-section" class="nav-link">Contact</a></li>
+                                <!-- 
+                                    Use this line code for any external links. workaround file main.js keeping nav bar links local.
+                                    <li><a class="nav-link btn btn-primary" href="page.php" onClick="window.location='page.php'">Some page name</a></li>
+                                -->
                                 <li><a href="<?php echo base_url(); ?>admin/login.php" class="nav-link btn btn-primary">Admin Sign In</a></li>
                             </ul>
                         </nav>
